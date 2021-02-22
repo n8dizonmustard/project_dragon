@@ -2,12 +2,9 @@
 //these const variables will not change throughout the program:
 //these variables are for computing the chance 
 const dragonActions = ['bite', 'claws', 'fire', 'fly']
-const swordChance = Math.floor(Math.random() * 10) + 1;
 const biteChance = Math.floor(Math.random() * 10) + 1;
 const clawsChance = Math.floor(Math.random() * 10) + 1;
 const fireChance = Math.floor(Math.random() * 10) + 1;
-
-
 
 /* ----- app's state (variables) -----*/
 //these let variables will be changed by init function:
@@ -32,6 +29,9 @@ const swordId = document.getElementById('sword')
 const shieldId = document.getElementById('shield')
 const bowId = document.getElementById('bow')
 const potionId = document.getElementById('potion')
+const body = document.querySelector('body')
+const replayId = document.getElementById('replay');
+const replayDiv = document.querySelector('.replay');
 
 
 /* ----- event listeners -----*/
@@ -41,6 +41,8 @@ potionId.addEventListener('click', potionAction);
 bowId.addEventListener('click', bowAction);
 shieldId.addEventListener('click', shieldAction);
 swordId.addEventListener('click', swordAction);
+replayId.addEventListener('click', init);
+
 
 
 /* ----- functions -----*/
@@ -61,6 +63,8 @@ function init(){
 //Sets the dragon's default position to 'On the Ground':
     flight = false;
 //This invokes the render function to update the view/DOM.
+    enableActions();
+    replayId.remove();
     render();
 }
 
@@ -88,6 +92,8 @@ function shieldAction(){
 };
 
 function swordAction(){
+    let swordChance = Math.floor(Math.random() * 10) + 1;
+    console.log(swordChance);
     if (swordChance > 2 && flight === false){
         function swordDamage(min, max){
             randomSwordDmg = Math.floor(Math.random() * (max-min) + min);
@@ -101,6 +107,7 @@ function swordAction(){
         eventId.textContent = `Your sword misses the beast...How embarrassing.`
     }
     disableActions()
+    gameEnd();
     flightStatus()
 };
 
@@ -110,6 +117,14 @@ function disableActions(){
     bowId.disabled = true;
     potionId.disabled = true;
     contId.disabled = false;
+}
+
+function enableActions(){
+    swordId.disabled = false;
+    shieldId.disabled = false;
+    bowId.disabled = false;
+    potionId.disabled = false;
+    contId.disabled = true; 
 }
 
 function dragonTurn(){
@@ -157,6 +172,8 @@ function dragonTurn(){
         flight = true;
         eventId.textContent = `The dragon takes flight!`
     }
+    enableActions();
+    gameEnd();
 }
 
 function flightStatus(){
@@ -166,4 +183,24 @@ function flightStatus(){
     } else {
         flight = false;
     }
+}
+
+function gameEnd(){
+    if (knightNumHP <= 0){
+        eventId.textContent += ` GAME OVER. The Dragon has eaten you.`
+        getHealth.knight.textContent = `Knight HP: 0`;
+        replay();
+    } else if (dragonNumHP <= 0){
+        eventId.textContent += ` VICTORY! You have slain the Dragon!`
+        getHealth.dragon.textContent = `Dragon HP: 0`;
+        replay();
+    } else {
+        return false;
+    }
+}
+
+function replay(){
+    disableActions()
+    contId.disabled = true;
+    replayDiv.appendChild(replayId);
 }
