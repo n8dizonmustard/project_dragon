@@ -22,15 +22,14 @@ const getHealth = {
     knight: document.getElementById('knight-hp'),
     dragon: document.getElementById('dragon-hp'),
 }
-const eventId = document.getElementById('event')
+
+const eventId = document.getElementById('event-text')
 const contId = document.getElementById('cont')
 const playerActions = document.querySelector('player-action')
 const swordId = document.getElementById('sword')
 const shieldId = document.getElementById('shield')
 const bowId = document.getElementById('bow')
 const potionId = document.getElementById('potion')
-const knightHPId = document.getElementById('knightNumHP')
-const dragonHPId = document.getElementById('dragonNumHP')
 
 
 /* ----- event listeners -----*/
@@ -64,3 +63,23 @@ function shieldAction(){
 function swordAction(){
     console.log('Sword sharpened.');
 };
+
+function init(){
+
+//Set the HP of the Knight to 100:
+    knightNumHP = 100;
+    getHealth.knight.textContent = `Knight HP: ${knightNumHP}`;
+
+//Set the HP of the Dragon to 300:
+    dragonNumHP = 300;
+    getHealth.dragon.textContent = `Dragon HP: ${dragonNumHP}`;
+
+//Set Text Event Text:
+    eventId.textContent = 'Select an Action!';
+
+//Disable the continue button:
+    contId.disabled = true;
+
+}
+
+init();
