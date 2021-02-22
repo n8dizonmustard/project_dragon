@@ -5,6 +5,7 @@ const dragonActions = ['bite', 'claws', 'fire', 'fly']
 const swordChance = Math.floor(Math.random() * 10) + 1;
 const biteChance = Math.floor(Math.random() * 10) + 1;
 const clawsChance = Math.floor(Math.random() * 10) + 1;
+const fireChance = Math.floor(Math.random() * 10) + 1;
 
 
 
@@ -17,6 +18,7 @@ let eventText;
 let knightNumHP;
 let dragonNumHP;
 let dragonAction;
+let flight;
 
 /* ----- cached elements references -----*/
 //these variables allow us to grab elements once and store them for later functions:
@@ -56,6 +58,8 @@ function init(){
     eventId.textContent = 'Select an Action!';
 //Disable the continue button:
     contId.disabled = true;
+//Sets the dragon's default position to 'On the Ground':
+    flight = false;
 //This invokes the render function to update the view/DOM.
     render();
 }
@@ -84,7 +88,7 @@ function shieldAction(){
 };
 
 function swordAction(){
-    if (swordChance > 2){
+    if (swordChance > 2 && flight === false){
         function swordDamage(min, max){
             randomSwordDmg = Math.floor(Math.random() * (max-min) + min);
             return randomSwordDmg;
@@ -97,6 +101,7 @@ function swordAction(){
         eventId.textContent = `Your sword misses the beast...How embarrassing.`
     }
     disableActions()
+    flightStatus()
 };
 
 function disableActions(){
@@ -109,7 +114,7 @@ function disableActions(){
 
 function dragonTurn(){
     dragonAction = Math.floor(Math.random() * dragonActions.length);
-    if (dragonAction = 0){
+    if (dragonAction === 0){
         if (biteChance > 3){
             function biteDamage(min, max){
                 randomBiteDmg = Math.floor(Math.random() * (max-min) + min);
@@ -122,7 +127,7 @@ function dragonTurn(){
         } else {
             eventId.textContent = `You are too fast for the dragon's jaws! You dodge its bite.` 
         }
-    } else if (dragonAction = 1){
+    } else if (dragonAction === 1){
         if (clawsChance > 2){
             function clawsDamage(min, max){
                 randomClawsDmg = Math.floor(Math.random() * (max-min) + min);
@@ -135,13 +140,13 @@ function dragonTurn(){
         } else {
             eventId.textContent = `You parry the dragon's claws with your sword!`
         }
-    } else if (dragonAction = 2){
+    } else if (dragonAction === 2){
         if (fireChance > 4){
             function fireDamage(min, max){
                 randomFireDmg = Math.floor(Math.random() * (max-min) + min);
                 return randomFireDmg;
             }
-            fireDamage(15, 21)
+            fireDamage(15, 21);
             knightNumHP -= randomFireDmg;
             getHealth.knight.textContent = `Knight HP: ${knightNumHP}`;
             eventId.textContent = `The dragon breathes fire! You receive ${randomFireDmg} damage!`
@@ -149,17 +154,16 @@ function dragonTurn(){
             eventId.textContent = `The dragon's flames are repelled by your shield!`
         }
     } else {
-        if (fireChance > 4){
-            function fireDamage(min, max){
-                randomFireDmg = Math.floor(Math.random() * (max-min) + min);
-                return randomFireDmg;
-            }
-            fireDamage(15, 21)
-            knightNumHP -= randomFireDmg;
-            getHealth.knight.textContent = `Knight HP: ${knightNumHP}`;
-            eventId.textContent = `The dragon breathes fire! You receive ${randomFireDmg} damage!`
-        } else {
-            eventId.textContent = `The dragon's flames are repelled by your shield!`
-        }
+        flight = true;
+        eventId.textContent = `The dragon takes flight!`
+    }
+}
+
+function flightStatus(){
+    if (flight === true){
+        eventId.textContent += ` The dragon lands in front of you.`
+        flight = false;
+    } else {
+        flight = false;
     }
 }
