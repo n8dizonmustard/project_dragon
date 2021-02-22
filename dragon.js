@@ -84,15 +84,39 @@ function potionAction(){
 };
 
 function bowAction(){
-    console.log('Bow is strung.');
-};
+    let bowChance = Math.floor(Math.random() * 100) + 1;
+    console.log(bowChance);
+    if (bowChance > 50 && flight === false){
+        function bowDamage(min, max){
+            randomBowDmg = Math.floor(Math.random() * (max-min) + min);
+            return randomBowDmg;
+        }
+        bowDamage(50, 76)
+        dragonNumHP -= randomBowDmg;
+        getHealth.dragon.textContent = `Dragon HP: ${dragonNumHP}`;
+        eventId.textContent = `Your arrow hits its mark! You deal ${randomBowDmg} damage!`
+    } else if (bowChance > 75 && flight === true){
+        function bowDamage(min, max){
+            randomBowDmg = Math.floor(Math.random() * (max-min) + min);
+            return randomBowDmg;
+        }
+        bowDamage(50, 76)
+        dragonNumHP -= randomBowDmg;
+        getHealth.dragon.textContent = `Dragon HP: ${dragonNumHP}`;
+        eventId.textContent = `Your arrow hits its mark! You deal ${randomBowDmg} damage!`
+    } else {
+        eventId.textContent = `The dragon's scales deflect your arrow!`
+    }
+    disableActions()
+    gameEnd();
+    flightStatus()};
 
 function shieldAction(){
     console.log('Shield polished.');
 };
 
 function swordAction(){
-    let swordChance = Math.floor(Math.random() * 10) + 1;
+    let swordChance = Math.floor(Math.random() * 100) + 1;
     console.log(swordChance);
     if (swordChance > 2 && flight === false){
         function swordDamage(min, max){
