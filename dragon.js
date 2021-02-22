@@ -2,6 +2,11 @@
 //these const variables will not change throughout the program:
 //these variables are for computing the chance 
 const dragonActions = ['bite', 'claws', 'fire', 'fly']
+const swordChance = Math.floor(Math.random() * 10) + 1;
+const biteChance = Math.floor(Math.random() * 10) + 1;
+const clawsChance = Math.floor(Math.random() * 10) + 1;
+
+
 
 /* ----- app's state (variables) -----*/
 //these let variables will be changed by init function:
@@ -11,6 +16,7 @@ let dragon;
 let eventText;
 let knightNumHP;
 let dragonNumHP;
+let dragonAction;
 
 /* ----- cached elements references -----*/
 //these variables allow us to grab elements once and store them for later functions:
@@ -62,7 +68,7 @@ function render(){
 
 // This function progresses the game after the Player clicks an Action Button.
 function continueGame(){
-    console.log('continue button working');
+    dragonTurn()
 };
 
 function potionAction(){
@@ -82,7 +88,6 @@ function swordAction(){
         function swordDamage(min, max){
             randomSwordDmg = Math.floor(Math.random() * (max-min) + min);
             return randomSwordDmg;
-            console.log(randomSwordDmg)
         }
         swordDamage(16, 26)
         dragonNumHP -= randomSwordDmg;
@@ -103,5 +108,58 @@ function disableActions(){
 }
 
 function dragonTurn(){
-
+    dragonAction = Math.floor(Math.random() * dragonActions.length);
+    if (dragonAction = 0){
+        if (biteChance > 3){
+            function biteDamage(min, max){
+                randomBiteDmg = Math.floor(Math.random() * (max-min) + min);
+                return randomBiteDmg;
+            }
+            biteDamage(12, 16)
+            knightNumHP -= randomBiteDmg;
+            getHealth.knight.textContent = `Knight HP: ${knightNumHP}`;
+            eventId.textContent = `The dragon's terrible jaws nearly clamp around you! You receive ${randomBiteDmg} damage!`
+        } else {
+            eventId.textContent = `You are too fast for the dragon's jaws! You dodge its bite.` 
+        }
+    } else if (dragonAction = 1){
+        if (clawsChance > 2){
+            function clawsDamage(min, max){
+                randomClawsDmg = Math.floor(Math.random() * (max-min) + min);
+                return randomClawsDmg;
+            }
+            clawsDamage(8, 15)
+            knightNumHP -= randomClawsDmg;
+            getHealth.knight.textContent = `Knight HP: ${knightNumHP}`;
+            eventId.textContent = `The dragon pounces by swiping its claws! You receive ${randomClawsDmg} damage!`
+        } else {
+            eventId.textContent = `You parry the dragon's claws with your sword!`
+        }
+    } else if (dragonAction = 2){
+        if (fireChance > 4){
+            function fireDamage(min, max){
+                randomFireDmg = Math.floor(Math.random() * (max-min) + min);
+                return randomFireDmg;
+            }
+            fireDamage(15, 21)
+            knightNumHP -= randomFireDmg;
+            getHealth.knight.textContent = `Knight HP: ${knightNumHP}`;
+            eventId.textContent = `The dragon breathes fire! You receive ${randomFireDmg} damage!`
+        } else {
+            eventId.textContent = `The dragon's flames are repelled by your shield!`
+        }
+    } else {
+        if (fireChance > 4){
+            function fireDamage(min, max){
+                randomFireDmg = Math.floor(Math.random() * (max-min) + min);
+                return randomFireDmg;
+            }
+            fireDamage(15, 21)
+            knightNumHP -= randomFireDmg;
+            getHealth.knight.textContent = `Knight HP: ${knightNumHP}`;
+            eventId.textContent = `The dragon breathes fire! You receive ${randomFireDmg} damage!`
+        } else {
+            eventId.textContent = `The dragon's flames are repelled by your shield!`
+        }
+    }
 }
