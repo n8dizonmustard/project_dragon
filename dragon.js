@@ -1,16 +1,12 @@
 /* ----- constants -----*/
 //these const variables will not change throughout the program:
-const bite = Math.floor(Math.random() * 0.6);
-const claws = Math.floor(Math.random() * 0.7);
-const fire = Math.floor(Math.random() * 0.8);
-const sword = Math.floor(Math.random() * 0.9);
-const shield = 1;
-const bow = Math.floor(Math.random() * 0.5);
-const potion = 1;
+//these variables are for computing the chance 
+const dragonActions = ['bite', 'claws', 'fire', 'fly']
 
 /* ----- app's state (variables) -----*/
 //these let variables will be changed by init function:
 let knight;
+let shieldValue;
 let dragon;
 let eventText;
 let knightNumHP;
@@ -22,10 +18,8 @@ const getHealth = {
     knight: document.getElementById('knight-hp'),
     dragon: document.getElementById('dragon-hp'),
 }
-
 const eventId = document.getElementById('event-text')
 const contId = document.getElementById('cont')
-const playerActions = document.querySelector('player-action')
 const swordId = document.getElementById('sword')
 const shieldId = document.getElementById('shield')
 const bowId = document.getElementById('bow')
@@ -33,7 +27,7 @@ const potionId = document.getElementById('potion')
 
 
 /* ----- event listeners -----*/
-//this event listener is for the confirm button
+//these event listeners execute player actions or run the game
 contId.addEventListener('click', continueGame);
 potionId.addEventListener('click', potionAction);
 bowId.addEventListener('click', bowAction);
@@ -42,6 +36,29 @@ swordId.addEventListener('click', swordAction);
 
 
 /* ----- functions -----*/
+
+//This sets the game's starting values.
+init();
+function init(){
+//Set the HP of the Knight to 100:
+    knightNumHP = 100;
+    getHealth.knight.textContent = `Knight HP: ${knightNumHP}`;
+//Set the HP of the Dragon to 300:
+    dragonNumHP = 300;
+    getHealth.dragon.textContent = `Dragon HP: ${dragonNumHP}`;
+//Set Text Event Text:
+    eventId.textContent = 'Select an Action!';
+//Disable the continue button:
+    contId.disabled = true;
+//This invokes the render function to update the view/DOM.
+    render();
+}
+
+
+//This updates the DOM/View
+function render(){
+    console.log('render is firing! PEW PEW')
+}
 
 // This function progresses the game after the Player clicks an Action Button.
 function continueGame(){
@@ -61,25 +78,30 @@ function shieldAction(){
 };
 
 function swordAction(){
-    console.log('Sword sharpened.');
+    if (swordChance > 2){
+        function swordDamage(min, max){
+            randomSwordDmg = Math.floor(Math.random() * (max-min) + min);
+            return randomSwordDmg;
+            console.log(randomSwordDmg)
+        }
+        swordDamage(16, 26)
+        dragonNumHP -= randomSwordDmg;
+        getHealth.dragon.textContent = `Dragon HP: ${dragonNumHP}`;
+        eventId.textContent = `Your sword swings true! You deal ${randomSwordDmg} damage!`
+    } else {
+        eventId.textContent = `Your sword misses the beast...How embarrassing.`
+    }
+    disableActions()
 };
 
-function init(){
-
-//Set the HP of the Knight to 100:
-    knightNumHP = 100;
-    getHealth.knight.textContent = `Knight HP: ${knightNumHP}`;
-
-//Set the HP of the Dragon to 300:
-    dragonNumHP = 300;
-    getHealth.dragon.textContent = `Dragon HP: ${dragonNumHP}`;
-
-//Set Text Event Text:
-    eventId.textContent = 'Select an Action!';
-
-//Disable the continue button:
-    contId.disabled = true;
-
+function disableActions(){
+    swordId.disabled = true;
+    shieldId.disabled = true;
+    bowId.disabled = true;
+    potionId.disabled = true;
+    contId.disabled = false;
 }
 
-init();
+function dragonTurn(){
+
+}
