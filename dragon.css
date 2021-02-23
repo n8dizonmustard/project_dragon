@@ -1,4 +1,40 @@
+body {
+    text-align: center;
+}
+
 #event-header {
     color: red;
 }
 
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 200px 400px 200px;
+    grid-gap: 10px;
+    justify-content: center;
+}
+
+.grid-item {
+    border: 5px solid black;
+}
+
+#event {
+    grid-column: span 2;
+}
+
+#knight-sprite {
+    grid-column: span 1fr;
+}
+
+#dragon-sprite {
+    grid-column: span 2;
+}
+
+.player-action {
+    width: 150px;
+    height: 150px;
+}
+
+#player-actions {
+    grid-column: span 4;
+}
