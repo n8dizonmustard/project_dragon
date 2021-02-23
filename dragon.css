@@ -1,21 +1,31 @@
 body {
     text-align: center;
+    background-image: url(https://scontent-sea1-1.xx.fbcdn.net/v/t1.0-9/153612201_10223213166090209_687952016593341034_o.jpg?_nc_cat=103&ccb=3&_nc_sid=0debeb&_nc_ohc=jA4R4Y1oApkAX_SJYe3&_nc_ht=scontent-sea1-1.xx&oh=649540bbad930efe068306206c146ff7&oe=605AD0C8);
 }
 
 #event-header {
     color: red;
 }
 
+#setting {
+    position: center;
+    z-index: 1;
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 200px 400px 200px;
-    grid-gap: 10px;
+    /* grid-gap: 10px; */
+    row-gap: 20px 20px 30px;
     justify-content: center;
+    position: relative;
+    z-index: 2;
 }
 
 .grid-item {
-    border: 5px solid black;
+    border: 5px solid white;
+    color: white;
 }
 
 #event {
@@ -24,10 +34,14 @@ body {
 
 #knight-sprite {
     grid-column: span 1fr;
+
 }
 
 #dragon-sprite {
     grid-column: span 2;
+    
+    /* background-image: url(http://clipart-library.com/images_k/dragon-png-transparent/dragon-png-transparent-20.png); */
+
 }
 
 .player-action {
