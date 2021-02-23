@@ -1,54 +1,76 @@
-body {
-    text-align: center;
-    background-image: url(https://scontent-sea1-1.xx.fbcdn.net/v/t1.0-9/153612201_10223213166090209_687952016593341034_o.jpg?_nc_cat=103&ccb=3&_nc_sid=0debeb&_nc_ohc=jA4R4Y1oApkAX_SJYe3&_nc_ht=scontent-sea1-1.xx&oh=649540bbad930efe068306206c146ff7&oe=605AD0C8);
-}
-
 #event-header {
     color: red;
-}
-
-#setting {
-    position: center;
-    z-index: 1;
 }
 
 .grid-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 200px 400px 200px;
-    /* grid-gap: 10px; */
-    row-gap: 20px 20px 30px;
-    justify-content: center;
     position: relative;
-    z-index: 2;
+}
+
+
+#game {
+    background-image: url(https://scontent-sea1-1.xx.fbcdn.net/v/t1.0-9/153612201_10223213166090209_687952016593341034_o.jpg?_nc_cat=103&ccb=3&_nc_sid=0debeb&_nc_ohc=jA4R4Y1oApkAX_SJYe3&_nc_ht=scontent-sea1-1.xx&oh=649540bbad930efe068306206c146ff7&oe=605AD0C8);
+    border: 5px solid black;
+    /* height: 1000px;
+    width: 1800px; */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 1200px;
+    height: 800px;
 }
 
 .grid-item {
-    border: 5px solid white;
-    color: white;
+    border: 2px solid white;
 }
 
 #event {
     grid-column: span 2;
 }
 
-#knight-sprite {
-    grid-column: span 1fr;
 
+#knight-hp {
+    color: white;
+}
+
+#dragon-hp {
+    color: white;
+}
+
+#event-text {
+    color: white;
+}
+
+
+#knight-sprite {
+    color: yellow;
+}
+
+#action-sprite {
+    color: yellow;
 }
 
 #dragon-sprite {
+    color: yellow;
     grid-column: span 2;
-    
-    /* background-image: url(http://clipart-library.com/images_k/dragon-png-transparent/dragon-png-transparent-20.png); */
+}
 
+#drg-sprite {
+    height: 130%;
+    width: 130%;
+    position: relative;
+    right: 200px;
 }
 
 .player-action {
-    width: 150px;
-    height: 150px;
+    width: 125px;
+    height: 125px;
+    justify-content: space-around;
 }
 
 #player-actions {
     grid-column: span 4;
+
 }

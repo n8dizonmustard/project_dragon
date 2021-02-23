@@ -8,31 +8,32 @@
     <link rel="stylesheet" type="text/css" href="dragon.css" media="screen"/>
 </head>
 <body>
-    <div class="grid-container">
-
+    <div class="grid-container" id="game">
         <div class="grid-item" id="knight-hp"></div>
+
         <div class="grid-item" id="event">
             <h1 id="event-header"></h1>
             <h3 id="event-text"></h3>
             <button id="cont">Dragon's Turn</button>
         </div>
+
         <div class="grid-item" id="dragon-hp"></div>
         
         <div class="grid-item" id="knight-sprite">knight-sprite</div>
+
         <div class="grid-item" id="action-sprite">action-sprite</div>
-        <div class="grid-item" id="dragon-sprite">
-            <img src="http://clipart-library.com/images_k/dragon-png-transparent/dragon-png-transparent-20.png">
-        </div>
+
+        <div class="grid-item" id="dragon-sprite"><img src="http://clipart-library.com/images_k/dragon-png-transparent/dragon-png-transparent-1.png" id="drg-sprite"></div>
         
-        <div  class="grid-item" id="player-actions">
+        <div class="grid-item" id="player-actions">
             <button  class="player-action" id="potion">Potion</button>
             <button  class="player-action" id="bow">Bow</button>
             <button  class="player-action" id="shield">Shield</button>
             <button  class="player-action" id="sword">Sword</button>
             <button class="replay" id="replay">Replay?</button>
         </div>
-
     </div>
+
     <script src="dragon.js"></script>
 </body>
 </html>
