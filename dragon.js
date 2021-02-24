@@ -32,13 +32,10 @@ const shieldId = document.getElementById('shield');
 const bowId = document.getElementById('bow');
 const potionId = document.getElementById('potion');
 const body = document.querySelector('body');
-const replayId = document.getElementById('replay');
-const replayDiv = document.querySelector('.replay');
 const arrowsId = document.getElementById('arrows');
 const dragonSpriteId = document.getElementById('drg-sprite');
 const dragonSpriteDiv = document.getElementById('dragon-sprite');
 const darkestDungeon = document.getElementById('darkest-dungeon');
-const bgCheckbox = document.querySelector('input[type="checkbox"]');
 
 
 darkestDungeon.volume = .35;
@@ -50,8 +47,6 @@ potionId.addEventListener('click', potionAction);
 bowId.addEventListener('click', bowAction);
 shieldId.addEventListener('click', shieldAction);
 swordId.addEventListener('click', swordAction);
-replayId.addEventListener('click', init);
-bgCheckbox.addEventListener('change', darkestDungeonChanged);
 
 
 
@@ -63,18 +58,18 @@ function init(){
     knightNumHP = 100;
     getHealth.knight.textContent = `${knightNumHP}`;
     dragonNumHP = 300;
-    getHealth.dragon.textContent += `${dragonNumHP}`;
+    getHealth.dragon.textContent = `${dragonNumHP}`;
     arrows = 6;
     bowId.textContent = `${arrows}`;
     potions = 3;
     potionId.textContent = `${potions}`;
     shieldValue = 0;
-    eventHeaderId.textContent = 'Welcome, brave knight!';
-    eventTextId.textContent = 'Select an Action to Begin';
+    eventHeaderId.textContent = "You're attacked by a dragon!";
+    eventTextId.textContent = "You probably deserve it.";
     contId.disabled = true;
     flight = false;
-    enableActions();
-    replayId.remove();
+    contId.textContent = 'Begin'
+    disableActions();
 }
 
 
@@ -88,7 +83,7 @@ function potionAction(){
         randomHeal = Math.floor(Math.random() * (max-min) + min);
         return randomHeal;
     }
-    heal(15, 30)
+    heal(30, 51)
     knightNumHP += randomHeal;
     potions -= 1;
     eventHeaderId.textContent = `You drink a Potion.`
@@ -177,12 +172,27 @@ function disableActions(){
     bowId.disabled = true;
     potionId.disabled = true;
     contId.disabled = false;
+
+    swordId.style.backgroundColor = "#262626";
+    swordId.style.border = "10px outset #666666";
+    shieldId.style.backgroundColor = "#262626";
+    shieldId.style.border = "10px outset #666666";
+    bowId.style.backgroundColor = "#262626";
+    bowId.style.border = "10px outset #666666";
+    bowId.style.color = "white";
+    potionId.style.backgroundColor = "#262626";
+    potionId.style.border = "10px outset #666666";
+    potionId.style.color = "white";
+
 };
 
 function enableActions(){
     swordId.disabled = false;
     shieldId.disabled = false;
     contId.disabled = true;
+    contId.style.color = "gray";
+    contId.style.backgroundColor = "#262626";
+    contId.style.border = "7px outset #666666";
 
     if (potions < 1){
         potionId.disabled = true;
@@ -195,6 +205,22 @@ function enableActions(){
     } else {
         bowId.disabled = false;
     }
+
+    contId.style.backgroundColor = "black";
+    contId.style.border = "7px outset gold";
+    contId.style.color = "red";
+
+    swordId.style.backgroundColor = "red";
+    swordId.style.border = "10px outset maroon";
+    shieldId.style.backgroundColor = "#262626";
+    shieldId.style.border = "10px outset goldenrod";
+    bowId.style.backgroundColor = "rgb(58, 58, 130)";
+    bowId.style.border = "10px outset navy";
+    bowId.style.color = "yellow";
+    potionId.style.backgroundColor = "rgb(48, 181, 181)";
+    potionId.style.border = "10px outset darkgreen";
+    potionId.style.color = "greenyellow";
+
 };
 
 function dragonTurn(){
@@ -278,12 +304,12 @@ function gameEnd(){
     if (knightNumHP <= 0){
         eventHeaderId.textContent = `GAME OVER`
         eventTextId.textContent = `The Dragon feasts on your corpse. You taste awful.`
-        getHealth.knight.textContent = `Knight HP: 0`;
+        getHealth.knight.textContent = `0`;
         replay();
     } else if (dragonNumHP <= 0){
         eventHeaderId.textContent = `VICTORY!!!`
         eventId.textContent = `You have slain the Dragon! Congrats. You're a murderer.`
-        getHealth.dragon.textContent = `Dragon HP: 0`;
+        getHealth.dragon.textContent = `0`;
         replay();
     } else {
         return false;
@@ -292,10 +318,6 @@ function gameEnd(){
 
 function replay(){
     disableActions()
-    contId.disabled = true;
-    replayDiv.appendChild(replayId);
-}
-
-function darkestDungeonChanged(){
-    bgCheckbox.checked ? darkestDungeon.play() : darkestDungeon.pause();
+    contId.textContent = 'Replay?'
+    contId.addEventListener('click', init)
 }
