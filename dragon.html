@@ -9,7 +9,10 @@
 </head>
 <body>
     <div class="grid-container" id="game">
-        <div class="grid-item" id="knight-hp"></div>
+
+        <div class="grid-item" id="knight-hp-div">
+            <p id="knight-hp"></p>
+        </div>
 
         <div class="grid-item" id="event">
             <h1 id="event-header"></h1>
@@ -17,16 +20,18 @@
             <button id="cont">Dragon's Turn</button>
         </div>
 
-        <div class="grid-item" id="dragon-hp"></div>
+        <div class="grid-item" id="dragon-hp-div">
+            <p id="dragon-hp"></p>
+        </div>
         
-        <div class="grid-item" id="knight-sprite">knight-sprite</div>
+        <div class="grid-item" id="knight-sprite-div"><img src="http://clipart-library.com/images_k/knight-transparent/knight-transparent-5.png" id="k-sprite"></div>
 
-        <div class="grid-item" id="action-sprite">action-sprite</div>
+        <div class="grid-item" id="action-sprite"></div>
 
         <div class="grid-item" id="dragon-sprite"><img src="http://clipart-library.com/images_k/dragon-png-transparent/dragon-png-transparent-1.png" id="drg-sprite"></div>
         
         <div class="grid-item" id="player-actions">
-            <button  class="player-action" id="potion">Potion</button>
+            <button  class="player-action" id="potion">Potions</button>
             <button  class="player-action" id="bow">Bow</button>
             <button  class="player-action" id="shield">Shield</button>
             <button  class="player-action" id="sword">Sword</button>
@@ -34,6 +39,10 @@
         </div>
     </div>
 
+    <input type="checkbox">Background Audio
+    <audio id="darkest-dungeon" autoplay src="darkestdungeon.mp3" loop></audio>
+
     <script src="dragon.js"></script>
+
 </body>
 </html>

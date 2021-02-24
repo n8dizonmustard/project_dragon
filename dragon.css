@@ -1,51 +1,101 @@
-#event-header {
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+body {
+    font-family: MedievalSharp;
+    background-image: url(https://scontent-sea1-1.xx.fbcdn.net/v/t1.0-9/153612201_10223213166090209_687952016593341034_o.jpg?_nc_cat=103&ccb=3&_nc_sid=0debeb&_nc_ohc=jA4R4Y1oApkAX_SJYe3&_nc_ht=scontent-sea1-1.xx&oh=649540bbad930efe068306206c146ff7&oe=605AD0C8);
+
+}
+
+h1 {
     color: red;
+    text-align: center;
+    font-size: 50px;
+}
+
+h3 {
+    text-align: center;
+    font-size: 35px;
 }
 
 .grid-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 200px 400px 200px;
-    position: relative;
+    justify-items: center;
 }
-
 
 #game {
     background-image: url(https://scontent-sea1-1.xx.fbcdn.net/v/t1.0-9/153612201_10223213166090209_687952016593341034_o.jpg?_nc_cat=103&ccb=3&_nc_sid=0debeb&_nc_ohc=jA4R4Y1oApkAX_SJYe3&_nc_ht=scontent-sea1-1.xx&oh=649540bbad930efe068306206c146ff7&oe=605AD0C8);
-    border: 5px solid black;
-    /* height: 1000px;
-    width: 1800px; */
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     width: 1200px;
     height: 800px;
-}
-
-.grid-item {
-    border: 2px solid white;
+    border: 10px solid black;
 }
 
 #event {
     grid-column: span 2;
+    justify-self: center;
 }
 
+#cont {
+    font-family: MedievalSharp;
+    font-size: 20px;
+    display: block;
+    margin: auto;
+    padding: 10px 20px;
+}
 
+/* p tag & javascript target */
 #knight-hp {
     color: white;
+    font-size: 75px;
+    text-align: center;
 }
 
+/* div & grid item */
+#knight-hp-div {
+    background-image: url(http://clipart-library.com/img/1578912.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 150px;
+    height: 200px;
+}
+
+/* p tag & javascript target */
 #dragon-hp {
     color: white;
+    position: relative;
+    font-size: 75px;
+}
+
+/* div & grid item */
+#dragon-hp-div {
+    background-image: url(http://clipart-library.com/img/1578912.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 150px;
+    height: 200px;
 }
 
 #event-text {
     color: white;
 }
 
-
-#knight-sprite {
+#knight-sprite-div {
     color: yellow;
+    align-self: end;
+}
+
+#k-sprite {
+    height: 50%;
+    width: 50%;
+    transform: scaleX(-1);
+    position: relative;
+    top: 30px;
+    left: 200px;
 }
 
 #action-sprite {
@@ -64,13 +114,63 @@
     right: 200px;
 }
 
+/* buttons */
 .player-action {
     width: 125px;
     height: 125px;
-    justify-content: space-around;
+    margin: 20px 40px 20px 40px;
 }
 
+/* div */
 #player-actions {
-    grid-column: span 4;
+    grid-column: span 4;    
+}
 
+#sword {
+    background-image: url(http://clipart-library.com/images_k/sword-transparent/sword-transparent-9.png);
+    background-size: 90px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 10px outset maroon;
+    color: transparent;
+    background-color: red;
+}
+
+#shield {
+    background-image: url(http://clipart-library.com/img1/1514023.png);
+    background-size: 90px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 10px outset goldenrod;
+    color: transparent;
+    background-color: black; 
+}
+
+#bow {
+    background-image: url(http://clipart-library.com/image_gallery2/Archery-Free-Download-PNG.png);
+    background-size: 90px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 10px outset navy;
+    background-color: rgb(58, 58, 130);
+    font-family: MedievalSharp;
+    font-size: 50px;
+    color: yellow;
+    position: relative;
+    top: 10px;
+}
+
+#potion {
+    background-image: url(http://clipart-library.com/images_k/potion-transparent/potion-transparent-3.png);
+    background-size: 90px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 10px outset darkgreen;
+    background-color: rgb(48, 181, 181);
+    font-family: MedievalSharp;
+    font-size: 50px;
+    color: greenyellow;
+    position: relative;
+    top: 10px;
+    text-align: bottom;
 }

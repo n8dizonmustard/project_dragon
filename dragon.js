@@ -2,6 +2,8 @@
 //these const variables will not change throughout the program:
 //these variables are for computing the chance 
 const dragonActions = ['bite', 'claws', 'fire', 'fly']
+const dragonSprite = {imageUrl: 'http://clipart-library.com/images_k/dragon-png-transparent/dragon-png-transparent-1.png'}
+
 
 /* ----- app's state (variables) -----*/
 //these let variables will be changed by init function:
@@ -21,19 +23,25 @@ let flight;
 const getHealth = {
     knight: document.getElementById('knight-hp'),
     dragon: document.getElementById('dragon-hp'),
-}
-const eventHeaderId = document.getElementById('event-header')
-const eventTextId = document.getElementById('event-text')
-const contId = document.getElementById('cont')
-const swordId = document.getElementById('sword')
-const shieldId = document.getElementById('shield')
-const bowId = document.getElementById('bow')
-const potionId = document.getElementById('potion')
-const body = document.querySelector('body')
+};
+const eventHeaderId = document.getElementById('event-header');
+const eventTextId = document.getElementById('event-text');
+const contId = document.getElementById('cont');
+const swordId = document.getElementById('sword');
+const shieldId = document.getElementById('shield');
+const bowId = document.getElementById('bow');
+const potionId = document.getElementById('potion');
+const body = document.querySelector('body');
 const replayId = document.getElementById('replay');
 const replayDiv = document.querySelector('.replay');
-const arrowsId = document.getElementById('arrows')
+const arrowsId = document.getElementById('arrows');
+const dragonSpriteId = document.getElementById('drg-sprite');
+const dragonSpriteDiv = document.getElementById('dragon-sprite');
+const darkestDungeon = document.getElementById('darkest-dungeon');
+const bgCheckbox = document.querySelector('input[type="checkbox"]');
 
+
+darkestDungeon.volume = .35;
 
 /* ----- event listeners -----*/
 //these event listeners execute player actions or run the game
@@ -43,6 +51,7 @@ bowId.addEventListener('click', bowAction);
 shieldId.addEventListener('click', shieldAction);
 swordId.addEventListener('click', swordAction);
 replayId.addEventListener('click', init);
+bgCheckbox.addEventListener('change', darkestDungeonChanged);
 
 
 
@@ -52,13 +61,13 @@ replayId.addEventListener('click', init);
 init();
 function init(){
     knightNumHP = 100;
-    getHealth.knight.textContent = `Knight HP: ${knightNumHP}`;
+    getHealth.knight.textContent = `${knightNumHP}`;
     dragonNumHP = 300;
-    getHealth.dragon.textContent = `Dragon HP: ${dragonNumHP}`;
+    getHealth.dragon.textContent += `${dragonNumHP}`;
     arrows = 6;
-    bowId.textContent = `Bow: ${arrows} Arrows`;
+    bowId.textContent = `${arrows}`;
     potions = 3;
-    potionId.textContent = `Potions: ${potions}`;
+    potionId.textContent = `${potions}`;
     shieldValue = 0;
     eventHeaderId.textContent = 'Welcome, brave knight!';
     eventTextId.textContent = 'Select an Action to Begin';
@@ -84,8 +93,8 @@ function potionAction(){
     potions -= 1;
     eventHeaderId.textContent = `You drink a Potion.`
     eventTextId.textContent = `You regain ${randomHeal} HP!`
-    getHealth.knight.textContent = `Knight HP: ${knightNumHP}`;
-    potionId.textContent = `Potions: ${potions}`;
+    getHealth.knight.textContent = `${knightNumHP}`;
+    potionId.textContent = `${potions}`;
     disableActions()
     gameEnd();
     flightStatus()
@@ -100,7 +109,7 @@ function bowAction(){
             }
             bowDamage(50, 86)
             dragonNumHP -= randomBowDmg;
-            getHealth.dragon.textContent = `Dragon HP: ${dragonNumHP}`;
+            getHealth.dragon.textContent = `${dragonNumHP}`;
             eventHeaderId.textContent = `You fire your bow!`
             eventTextId.textContent = `Your arrow hits its mark! You deal ${randomBowDmg} damage!`
         } else if (bowChance > 70 && flight === true){
@@ -110,7 +119,7 @@ function bowAction(){
             }
             bowDamage(50, 76)
             dragonNumHP -= randomBowDmg;
-            getHealth.dragon.textContent = `Dragon HP: ${dragonNumHP}`;
+            getHealth.dragon.textContent = `${dragonNumHP}`;
             eventHeaderId.textContent = `You fire your bow!`
             eventTextId.textContent = `Your arrow hits its mark! You deal ${randomBowDmg} damage!`
         } else {
@@ -119,7 +128,7 @@ function bowAction(){
         }
 
     arrows -= 1;
-    bowId.textContent = `Bow: ${arrows} Arrows`
+    bowId.textContent = `${arrows}`
 
     disableActions()
     gameEnd();
@@ -144,14 +153,14 @@ function shieldAction(){
 
 function swordAction(){
     let swordChance = Math.floor(Math.random() * 100) + 1;
-    if (swordChance > 20 && flight === false){
+    if (swordChance > 15 && flight === false){
         function swordDamage(min, max){
             randomSwordDmg = Math.floor(Math.random() * (max-min) + min);
             return randomSwordDmg;
         }
         swordDamage(20, 31)
         dragonNumHP -= randomSwordDmg;
-        getHealth.dragon.textContent = `Dragon HP: ${dragonNumHP}`;
+        getHealth.dragon.textContent = `${dragonNumHP}`;
         eventTextId.textContent = `Your sword swings true! You deal ${randomSwordDmg} damage!`
     } else {
         eventTextId.textContent = `Your sword misses the beast. How embarrassing...`
@@ -202,7 +211,7 @@ function dragonTurn(){
             }
             biteDamage(15, 26)
             knightNumHP -= Math.floor(randomBiteDmg * (100 - shieldValue)/100);
-            getHealth.knight.textContent = `Knight HP: ${knightNumHP}`;
+            getHealth.knight.textContent = `${knightNumHP}`;
             eventTextId.textContent = `The bite throws you off balance! You receive ${randomBiteDmg} damage!`
         } else {
             eventTextId.textContent = `You are too fast for the dragon's jaws! You dodge its bite.` 
@@ -217,7 +226,7 @@ function dragonTurn(){
             }
             clawsDamage(10, 21)
             knightNumHP -= Math.floor(randomClawsDmg * (100 - shieldValue)/100);
-            getHealth.knight.textContent = `Knight HP: ${knightNumHP}`;
+            getHealth.knight.textContent = `${knightNumHP}`;
             eventTextId.textContent = `The claws dent your armor! You receive ${randomClawsDmg} damage!`
         } else {
             eventTextId.textContent = `You parry the dragon's claws with your sword!`
@@ -233,7 +242,7 @@ function dragonTurn(){
             }
             fireDamage(20, 31);
             knightNumHP -= Math.floor(randomFireDmg * (100 - (shieldValue*1.75))/100);
-            getHealth.knight.textContent = `Knight HP: ${knightNumHP}`;
+            getHealth.knight.textContent = `${knightNumHP}`;
             eventTextId.textContent = `YOU'RE on fire! No, really. You should stop, drop and roll. You receive ${randomFireDmg} damage!`
         } else {
             eventTextId.textContent = `The dragon's flames narrowly miss you!`
@@ -245,6 +254,7 @@ function dragonTurn(){
         flight = true;
         eventHeaderId.textContent = `The dragon takes flight!`
         eventTextId.textContent = `The majestic beast soars above looking for a weakness. (That won't be hard to spot...)`
+        dragonSpriteId.remove();
 
     }
     shieldValue = 0;
@@ -260,6 +270,7 @@ function flightStatus(){
     } else {
         flight = false;
     }
+    dragonSpriteDiv.appendChild(dragonSpriteId);
 }
 
 
@@ -283,4 +294,8 @@ function replay(){
     disableActions()
     contId.disabled = true;
     replayDiv.appendChild(replayId);
+}
+
+function darkestDungeonChanged(){
+    bgCheckbox.checked ? darkestDungeon.play() : darkestDungeon.pause();
 }
