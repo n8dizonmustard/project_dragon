@@ -27,7 +27,9 @@ const getHealth = {
 const eventHeaderId = document.getElementById('event-header');
 const eventTextId = document.getElementById('event-text');
 const eventId = document.getElementById('event');
+const startId = document.getElementById('start');
 const contId = document.getElementById('cont');
+const replayId = document.getElementById('replay');
 const swordId = document.getElementById('sword');
 const shieldId = document.getElementById('shield');
 const bowId = document.getElementById('bow');
@@ -37,21 +39,27 @@ const arrowsId = document.getElementById('arrows');
 const dragonSpriteId = document.getElementById('drg-sprite');
 const dragonSpriteDiv = document.getElementById('dragon-sprite');
 const darkestDungeon = document.getElementById('darkest-dungeon');
+
 const swordSFX = document.getElementById('swordSFX');
 const hitSFX = document.getElementById('hitSFX');
 const whooshSFX = document.getElementById('whooshSFX');
 const shieldSFXbc = document.getElementById('shieldSFXbc');
 const shieldSFXpound = document.getElementById('shieldSFXpound');
 const potionSFXdrink = document.getElementById('potionSFX');
-const magicSFX = document.getElementById('magic');
+const magicSFX = document.getElementById('magicSFX');
 const biteSFX = document.getElementById('biteSFX');
-const startId = document.getElementById('start');
-const replayId = document.getElementById('replay');
+const fireSFX = document.getElementById('fireSFX');
+const flyingSFX = document.getElementById('flyingSFX');
+const landingSFX = document.getElementById('landingSFX');
+const dragonSFX = document.getElementById('dragonSFX');
 
 
 
 darkestDungeon.volume = .2;
 magicSFX.volume = .75;
+fireSFX.volume = .5;
+magicSFX.volume = .75;
+potionSFXdrink.volume = .75;
 
 /* ----- event listeners -----*/
 //these event listeners execute player actions or run the game
@@ -189,7 +197,7 @@ function swordAction(){
         swordSFX.play();
         hitSFX.play();
     } else {
-        eventTextId.textContent = `Your sword misses the beast. How embarrassing...`
+        eventTextId.textContent = `Your sword misses the beast. How embarrassing.`
         whooshSFX.play();
     }
     eventHeaderId.textContent = `You swing your sword!`
@@ -205,6 +213,8 @@ function disableActions(){
     bowId.disabled = true;
     potionId.disabled = true;
     contId.disabled = false;
+    contId.textContent = "Dragon's Turn"
+
 
     contId.style.backgroundColor = "black";
     contId.style.border = "7px outset gold";
@@ -255,7 +265,7 @@ function enableActions(){
     bowId.style.color = "yellow";
     potionId.style.backgroundColor = "rgb(48, 181, 181)";
     potionId.style.border = "10px outset darkgreen";
-    potionId.style.color = "greenyellow";
+    potionId.style.color = "#00ff00";
 
 };
 
@@ -275,8 +285,10 @@ function dragonTurn(){
             knightNumHP -= Math.floor(randomBiteDmg * (100 - shieldValue)/100);
             getHealth.knight.textContent = `${knightNumHP}`;
             eventTextId.textContent = `The bite throws you off balance! You receive ${randomBiteDmg} damage!`
+            biteSFX.play();
         } else {
-            eventTextId.textContent = `You are too fast for the dragon's jaws! You dodge its bite.` 
+            eventTextId.textContent = `You are too fast for the dragon's jaws! You dodge its bite.`
+            whooshSFX.play();
         }
         eventHeaderId.textContent = `The dragon bites!`
 
@@ -290,8 +302,10 @@ function dragonTurn(){
             knightNumHP -= Math.floor(randomClawsDmg * (100 - shieldValue)/100);
             getHealth.knight.textContent = `${knightNumHP}`;
             eventTextId.textContent = `The claws dent your armor! You receive ${randomClawsDmg} damage!`
+            hitSFX.play();
         } else {
             eventTextId.textContent = `You parry the dragon's claws with your sword!`
+            whooshSFX.play();
         }
         eventHeaderId.textContent = `The dragon swipes its claws!`
 
@@ -310,13 +324,15 @@ function dragonTurn(){
             eventTextId.textContent = `The dragon's flames narrowly miss you!`
         }
         eventHeaderId.textContent = `The dragon breathes fire!`
-
+        fireSFX.play();
 
     } else {
         flight = true;
         eventHeaderId.textContent = `The dragon ascends!`
-        eventTextId.textContent = `The beast soars above looking for a weakness. (That won't be hard to spot...)`
+        eventTextId.textContent = `The beast soars above looking for a weakness. (That won't be difficult.)`
         dragonSpriteId.remove();
+        flyingSFX.play();
+        dragonSFX.play();
 
     }
     shieldValue = 0;
@@ -326,9 +342,8 @@ function dragonTurn(){
 
 function flightStatus(){
     if (flight === true){
-        eventHeaderId.textContent += `The dragon lands.`
-        eventTextId.textContent += `The ground shakes. (Hint: It's the dragon.)`
         flight = false;
+        landingSFX.play();
     } else {
         flight = false;
     }
