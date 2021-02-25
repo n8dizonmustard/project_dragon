@@ -36,9 +36,15 @@ const bowId = document.getElementById('bow');
 const potionId = document.getElementById('potion');
 const body = document.querySelector('body');
 const arrowsId = document.getElementById('arrows');
+
 const dragonSpriteId = document.getElementById('drg-sprite');
 const dragonSpriteDiv = document.getElementById('dragon-sprite');
 const darkestDungeon = document.getElementById('darkest-dungeon');
+const actionSpritesDiv = document.getElementById('actionSprites');
+const fireSprite = document.getElementById('fire-sprite');
+const clawsSprite = document.getElementById('claws-sprite');
+const biteSprite = document.getElementById('bite-sprite');
+const windSprite = document.getElementById('wind-sprite');
 
 const swordSFX = document.getElementById('swordSFX');
 const hitSFX = document.getElementById('hitSFX');
@@ -53,9 +59,7 @@ const flyingSFX = document.getElementById('flyingSFX');
 const landingSFX = document.getElementById('landingSFX');
 const dragonSFX = document.getElementById('dragonSFX');
 
-
-
-darkestDungeon.volume = .2;
+darkestDungeon.volume = .3;
 magicSFX.volume = .75;
 fireSFX.volume = .5;
 magicSFX.volume = .75;
@@ -70,6 +74,7 @@ shieldId.addEventListener('click', shieldAction);
 swordId.addEventListener('click', swordAction);
 startId.addEventListener('click', start);
 replayId.addEventListener('click', init);
+
 
 
 /* ----- functions -----*/
@@ -215,7 +220,6 @@ function disableActions(){
     contId.disabled = false;
     contId.textContent = "Dragon's Turn"
 
-
     contId.style.backgroundColor = "black";
     contId.style.border = "7px outset gold";
     contId.style.color = "red";
@@ -231,6 +235,10 @@ function disableActions(){
     potionId.style.border = "10px outset #666666";
     potionId.style.color = "white";
 
+    fireSprite.style.zIndex = -1;
+    clawsSprite.style.zIndex = -1;
+    biteSprite.style.zIndex = -1;
+    windSprite.style.zIndex = -1;
 };
 
 function enableActions(){
@@ -253,8 +261,6 @@ function enableActions(){
     } else {
         bowId.disabled = false;
     }
-
-
 
     swordId.style.backgroundColor = "red";
     swordId.style.border = "10px outset maroon";
@@ -286,6 +292,7 @@ function dragonTurn(){
             getHealth.knight.textContent = `${knightNumHP}`;
             eventTextId.textContent = `The bite throws you off balance! You receive ${randomBiteDmg} damage!`
             biteSFX.play();
+            biteSprite.style.zIndex = 2;
         } else {
             eventTextId.textContent = `You are too fast for the dragon's jaws! You dodge its bite.`
             whooshSFX.play();
@@ -303,12 +310,12 @@ function dragonTurn(){
             getHealth.knight.textContent = `${knightNumHP}`;
             eventTextId.textContent = `The claws dent your armor! You receive ${randomClawsDmg} damage!`
             hitSFX.play();
+            clawsSprite.style.zIndex = 2;
         } else {
             eventTextId.textContent = `You parry the dragon's claws with your sword!`
             whooshSFX.play();
         }
         eventHeaderId.textContent = `The dragon swipes its claws!`
-
 
     } else if (dragonAction === 2){
         if (fireChance > 35){
@@ -325,13 +332,15 @@ function dragonTurn(){
         }
         eventHeaderId.textContent = `The dragon breathes fire!`
         fireSFX.play();
+        fireSprite.style.zIndex = 2;
 
     } else {
         flight = true;
-        eventHeaderId.textContent = `The dragon ascends!`
-        eventTextId.textContent = `The beast soars above looking for a weakness. (That won't be difficult.)`
+        eventHeaderId.textContent = `The dragon flies!`
+        eventTextId.textContent = `The beast searches for a weakness. (That won't be difficult.)`
         dragonSpriteId.remove();
         flyingSFX.play();
+        windSprite.style.zIndex = 1;
         dragonSFX.play();
 
     }

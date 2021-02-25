@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');body {
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
     font-family: 'Press Start 2P', cursive;
     background-image: url(https://scontent-sea1-1.xx.fbcdn.net/v/t1.0-9/153612201_10223213166090209_687952016593341034_o.jpg?_nc_cat=103&ccb=3&_nc_sid=0debeb&_nc_ohc=jA4R4Y1oApkAX_SJYe3&_nc_ht=scontent-sea1-1.xx&oh=649540bbad930efe068306206c146ff7&oe=605AD0C8);
 
@@ -64,6 +66,7 @@ h3 {
 /* p tag & javascript target */
 #knight-hp {
     color: white;
+
     font-size: 50px;
     text-align: center;
     position: relative;
@@ -84,6 +87,7 @@ h3 {
 /* p tag & javascript target */
 #dragon-hp {
     color: white;
+    text-align: center;
     position: relative;
     font-size: 50px;
     position: relative;
@@ -103,6 +107,7 @@ h3 {
 
 #knight-sprite-div {
     align-self: end;
+    border: 2px solid white;
 }
 
 #k-sprite {
@@ -112,16 +117,12 @@ h3 {
     position: relative;
     top: 30px;
     left: 200px;
-
-}
-
-#action-sprite {
-    color: yellow;
+    z-index: 1;
 }
 
 #dragon-sprite {
     grid-column: span 2;
-
+    border: 2px solid white;
 }
 
 #drg-sprite {
@@ -144,7 +145,8 @@ h3 {
 
 /* div */
 #player-actions {
-    grid-column: span 4;    
+    grid-column: span 4;
+    border: 2px solid white;
 }
 
 #sword {
@@ -195,4 +197,49 @@ h3 {
     top: 10px;
     text-align: bottom;
     -webkit-text-stroke: 1px black;
+}
+
+/* action sprites div */
+#action-sprites {
+    border: 2px solid yellow;
+    align-self: end;
+}
+
+#fire-sprite {
+    border: 1px solid white;
+    width: 30%;
+    position: absolute;
+    bottom: 350px;
+    left: 330px;
+    z-index: -1;
+}
+
+#claws-sprite {
+    border: 1px solid white;
+    width: 10%;
+    transform: scaleX(-1);
+    position: absolute;
+    bottom: 325px;
+    left: 215px;
+    z-index: -1;
+}
+
+#bite-sprite {
+    border: 1px solid white;
+    width: 10%;
+    transform: scaleX(-1);
+    position: absolute;
+    bottom: 350px;
+    left: 215px;
+    z-index: -1;
+}
+
+#wind-sprite {
+    border: 1px solid white;
+    width: 20%;
+    transform: scaleX(-1);
+    position: absolute;
+    bottom: 350px;
+    left: 700px;
+    z-index: -1;
 }
