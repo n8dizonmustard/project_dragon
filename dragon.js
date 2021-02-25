@@ -26,6 +26,7 @@ const getHealth = {
 };
 const eventHeaderId = document.getElementById('event-header');
 const eventTextId = document.getElementById('event-text');
+const eventId = document.getElementById('event');
 const contId = document.getElementById('cont');
 const swordId = document.getElementById('sword');
 const shieldId = document.getElementById('shield');
@@ -36,9 +37,21 @@ const arrowsId = document.getElementById('arrows');
 const dragonSpriteId = document.getElementById('drg-sprite');
 const dragonSpriteDiv = document.getElementById('dragon-sprite');
 const darkestDungeon = document.getElementById('darkest-dungeon');
+const swordSFX = document.getElementById('swordSFX');
+const hitSFX = document.getElementById('hitSFX');
+const whooshSFX = document.getElementById('whooshSFX');
+const shieldSFXbc = document.getElementById('shieldSFXbc');
+const shieldSFXpound = document.getElementById('shieldSFXpound');
+const potionSFXdrink = document.getElementById('potionSFX');
+const magicSFX = document.getElementById('magic');
+const biteSFX = document.getElementById('biteSFX');
+const startId = document.getElementById('start');
+const replayId = document.getElementById('replay');
 
 
-darkestDungeon.volume = .35;
+
+darkestDungeon.volume = .2;
+magicSFX.volume = .75;
 
 /* ----- event listeners -----*/
 //these event listeners execute player actions or run the game
@@ -47,10 +60,12 @@ potionId.addEventListener('click', potionAction);
 bowId.addEventListener('click', bowAction);
 shieldId.addEventListener('click', shieldAction);
 swordId.addEventListener('click', swordAction);
-
+startId.addEventListener('click', start);
+replayId.addEventListener('click', init);
 
 
 /* ----- functions -----*/
+eventId.appendChild(startId);
 
 //This sets the game's starting values.
 init();
@@ -66,15 +81,23 @@ function init(){
     shieldValue = 0;
     eventHeaderId.textContent = "You're attacked by a dragon!";
     eventTextId.textContent = "You probably deserve it.";
-    contId.disabled = true;
     flight = false;
-    contId.textContent = 'Begin'
+    eventId.appendChild(startId);
+    contId.remove();
+    replayId.remove();
     disableActions();
+}
+
+function start(){
+    darkestDungeon.play();
+    eventId.appendChild(contId);
+    startId.remove();
 }
 
 
 // This function progresses the game after the Player clicks an Action Button.
 function continueGame(){
+    contId.textContent = "Dragon's Turn"
     dragonTurn()
 };
 
@@ -90,37 +113,42 @@ function potionAction(){
     eventTextId.textContent = `You regain ${randomHeal} HP!`
     getHealth.knight.textContent = `${knightNumHP}`;
     potionId.textContent = `${potions}`;
+    potionSFXdrink.play();
+    magicSFX.play();
     disableActions()
     gameEnd();
     flightStatus()
 };
 
 function bowAction(){
-        let bowChance = Math.floor(Math.random() * 100) + 1;
-        if (bowChance > 50 && flight === false){
-            function bowDamage(min, max){
-                randomBowDmg = Math.floor(Math.random() * (max-min) + min);
-                return randomBowDmg;
-            }
-            bowDamage(50, 86)
-            dragonNumHP -= randomBowDmg;
-            getHealth.dragon.textContent = `${dragonNumHP}`;
-            eventHeaderId.textContent = `You fire your bow!`
-            eventTextId.textContent = `Your arrow hits its mark! You deal ${randomBowDmg} damage!`
-        } else if (bowChance > 70 && flight === true){
-            function bowDamage(min, max){
-                randomBowDmg = Math.floor(Math.random() * (max-min) + min);
-                return randomBowDmg;
-            }
-            bowDamage(50, 76)
-            dragonNumHP -= randomBowDmg;
-            getHealth.dragon.textContent = `${dragonNumHP}`;
-            eventHeaderId.textContent = `You fire your bow!`
-            eventTextId.textContent = `Your arrow hits its mark! You deal ${randomBowDmg} damage!`
-        } else {
-            eventHeaderId.textContent = `You fire your bow!`
-            eventTextId.textContent = `The dragon's scales deflect your arrow. You should really work on your aim...`
+    let bowChance = Math.floor(Math.random() * 100) + 1;
+    if (bowChance > 50 && flight === false){
+        function bowDamage(min, max){
+            randomBowDmg = Math.floor(Math.random() * (max-min) + min);
+            return randomBowDmg;
         }
+        bowDamage(50, 86)
+        dragonNumHP -= randomBowDmg;
+        getHealth.dragon.textContent = `${dragonNumHP}`;
+        eventHeaderId.textContent = `You fire your bow!`
+        eventTextId.textContent = `Your arrow hits its mark! You deal ${randomBowDmg} damage!`
+        whooshSFX.play();
+    } else if (bowChance > 70 && flight === true){
+        function bowDamage(min, max){
+            randomBowDmg = Math.floor(Math.random() * (max-min) + min);
+            return randomBowDmg;
+        }
+        bowDamage(50, 76)
+        dragonNumHP -= randomBowDmg;
+        getHealth.dragon.textContent = `${dragonNumHP}`;
+        eventHeaderId.textContent = `You fire your bow!`
+        eventTextId.textContent = `Your arrow hits its mark! You deal ${randomBowDmg} damage!`
+        whooshSFX.play();
+    } else {
+        eventHeaderId.textContent = `You fire your bow!`
+        eventTextId.textContent = `Your arrow misses! You should really work on your aim...`
+        whooshSFX.play();
+    }
 
     arrows -= 1;
     bowId.textContent = `${arrows}`
@@ -140,10 +168,11 @@ function shieldAction(){
     shieldValue = randomDefense;
     eventHeaderId.textContent = `You brace your Shield.`
     eventTextId.textContent = ` Your defenses are bolstered for this turn.`
-    
-    disableActions()
+    shieldSFXbc.play();
+    shieldSFXpound.play();
+    disableActions();
     gameEnd();
-    flightStatus()
+    flightStatus();
 };
 
 function swordAction(){
@@ -157,13 +186,17 @@ function swordAction(){
         dragonNumHP -= randomSwordDmg;
         getHealth.dragon.textContent = `${dragonNumHP}`;
         eventTextId.textContent = `Your sword swings true! You deal ${randomSwordDmg} damage!`
+        swordSFX.play();
+        hitSFX.play();
     } else {
         eventTextId.textContent = `Your sword misses the beast. How embarrassing...`
+        whooshSFX.play();
     }
     eventHeaderId.textContent = `You swing your sword!`
-    disableActions()
+
+    disableActions();
     gameEnd();
-    flightStatus()
+    flightStatus();
 };
 
 function disableActions(){
@@ -172,6 +205,10 @@ function disableActions(){
     bowId.disabled = true;
     potionId.disabled = true;
     contId.disabled = false;
+
+    contId.style.backgroundColor = "black";
+    contId.style.border = "7px outset gold";
+    contId.style.color = "red";
 
     swordId.style.backgroundColor = "#262626";
     swordId.style.border = "10px outset #666666";
@@ -190,9 +227,10 @@ function enableActions(){
     swordId.disabled = false;
     shieldId.disabled = false;
     contId.disabled = true;
-    contId.style.color = "gray";
+    contId.style.color = "white";
     contId.style.backgroundColor = "#262626";
-    contId.style.border = "7px outset #666666";
+    contId.style.border = "7px outset maroon";
+    contId.textContent = "Your Turn"
 
     if (potions < 1){
         potionId.disabled = true;
@@ -206,9 +244,7 @@ function enableActions(){
         bowId.disabled = false;
     }
 
-    contId.style.backgroundColor = "black";
-    contId.style.border = "7px outset gold";
-    contId.style.color = "red";
+
 
     swordId.style.backgroundColor = "red";
     swordId.style.border = "10px outset maroon";
@@ -269,7 +305,7 @@ function dragonTurn(){
             fireDamage(20, 31);
             knightNumHP -= Math.floor(randomFireDmg * (100 - (shieldValue*1.75))/100);
             getHealth.knight.textContent = `${knightNumHP}`;
-            eventTextId.textContent = `YOU'RE on fire! No, really. You should stop, drop and roll. You receive ${randomFireDmg} damage!`
+            eventTextId.textContent = `You're on fire! Fire bad. You receive ${randomFireDmg} damage!`
         } else {
             eventTextId.textContent = `The dragon's flames narrowly miss you!`
         }
@@ -278,8 +314,8 @@ function dragonTurn(){
 
     } else {
         flight = true;
-        eventHeaderId.textContent = `The dragon takes flight!`
-        eventTextId.textContent = `The majestic beast soars above looking for a weakness. (That won't be hard to spot...)`
+        eventHeaderId.textContent = `The dragon ascends!`
+        eventTextId.textContent = `The beast soars above looking for a weakness. (That won't be hard to spot...)`
         dragonSpriteId.remove();
 
     }
@@ -290,8 +326,8 @@ function dragonTurn(){
 
 function flightStatus(){
     if (flight === true){
-        eventHeaderId.textContent = `The dragon lands.`
-        eventTextId.textContent = `The ground shakes around you. (Hint: It's the dragon.)`
+        eventHeaderId.textContent += `The dragon lands.`
+        eventTextId.textContent += `The ground shakes. (Hint: It's the dragon.)`
         flight = false;
     } else {
         flight = false;
@@ -304,12 +340,14 @@ function gameEnd(){
     if (knightNumHP <= 0){
         eventHeaderId.textContent = `GAME OVER`
         eventTextId.textContent = `The Dragon feasts on your corpse. You taste awful.`
-        getHealth.knight.textContent = `0`;
+        knightNumHP = 0;
+        getHealth.knight.textContent = `${knightNumHP}`;
         replay();
     } else if (dragonNumHP <= 0){
         eventHeaderId.textContent = `VICTORY!!!`
-        eventId.textContent = `You have slain the Dragon! Congrats. You're a murderer.`
-        getHealth.dragon.textContent = `0`;
+        eventTextId.textContent = `You have slain the Dragon! Congrats. You're a murderer.`
+        dragonNumHP = 0;
+        getHealth.dragon.textContent = `${dragonNumHP}`;
         replay();
     } else {
         return false;
@@ -317,7 +355,7 @@ function gameEnd(){
 }
 
 function replay(){
-    disableActions()
-    contId.textContent = 'Replay?'
-    contId.addEventListener('click', init)
+    disableActions();
+    contId.remove();
+    eventId.appendChild(replayId);
 }
