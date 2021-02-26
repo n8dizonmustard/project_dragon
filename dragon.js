@@ -1,5 +1,5 @@
 const dragonActions = ['bite', 'claws', 'fire', 'fly']
-const dragonSprite = {imageUrl: 'https://clipart-library.com/images_k/dragon-png-transparent/dragon-png-transparent-1.png'}
+const dragonSprite = {imageUrl: 'http://clipart-library.com/images_k/dragon-png-transparent/dragon-png-transparent-1.png'}
 let knight;
 let shieldValue;
 let dragon;
