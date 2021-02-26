@@ -66,7 +66,13 @@ const flyingSFX = document.getElementById('flyingSFX');
 const landingSFX = document.getElementById('landingSFX');
 const dragonSFX = document.getElementById('dragonSFX');
 
-const swordText = document.getElementById('sword-text');
+const swordTextId = document.getElementById('sword-text');
+const shieldTextId = document.getElementById('shield-text');
+const bowTextId = document.getElementById('bow-text');
+const potionTextId = document.getElementById('potion-text');
+const knightTextId = document.getElementById('knight-text');
+const deadKnightTextId = document.getElementById('dead-knight-text');
+const deadDragonTextId = document.getElementById('dead-dragon-text');
 
 darkestDungeon.volume = .3;
 magicSFX.volume = .75;
@@ -83,17 +89,36 @@ shieldId.addEventListener('click', shieldAction);
 swordId.addEventListener('click', swordAction);
 startId.addEventListener('click', start);
 replayId.addEventListener('click', init);
-swordId.addEventListener('hover', displaySword);
 
-
+swordId.addEventListener('mouseenter', () => swordTextId.style.zIndex = 4);
+swordId.addEventListener('click', () => swordTextId.style.zIndex = -1);
+swordId.addEventListener('mouseleave', () => swordTextId.style.zIndex = -1);
+shieldId.addEventListener('mouseenter', () => shieldTextId.style.zIndex = 4);
+shieldId.addEventListener('click', () => shieldTextId.style.zIndex = -1);
+shieldId.addEventListener('mouseleave', () => shieldTextId.style.zIndex = -1);
+bowId.addEventListener('mouseenter', () => bowTextId.style.zIndex = 4);
+bowId.addEventListener('click', () => bowTextId.style.zIndex = -1);
+bowId.addEventListener('mouseleave', () => bowTextId.style.zIndex = -1);
+potionId.addEventListener('mouseenter', () => potionTextId.style.zIndex = 4);
+potionId.addEventListener('click', () => potionTextId.style.zIndex = -1);
+potionId.addEventListener('mouseleave', () => potionTextId.style.zIndex = -1);
+knightSpriteId.addEventListener('mouseenter', () => knightTextId.style.zIndex = 4);
+knightSpriteId.addEventListener('mouseleave', () => knightTextId.style.zIndex = -1);
+tombstoneK.addEventListener('mouseenter', () => deadKnightTextId.style.zIndex = 4);
+tombstoneK.addEventListener('mouseleave', () => deadKnightTextId.style.zIndex = -1);
+tombstoneD.addEventListener('mouseenter', () => deadDragonTextId.style.zIndex = 4);
+tombstoneD.addEventListener('mouseleave', () => deadDragonTextId.style.zIndex = -1);
 
 /* ----- functions -----*/
 eventId.appendChild(startId);
 
 //These hover functions display tutorial text when the user hovers over the Action button.
 
-function displaySword(){
+function swordTextShow(){
     swordText.style.zIndex = 4;
+}
+function swordTextHide(){
+    swordText.style.zIndex = -1;
 }
 
 
@@ -102,7 +127,7 @@ init();
 function init(){
     knightNumHP = 50;
     getHealth.knight.textContent = `${knightNumHP}`;
-    dragonNumHP = 200;
+    dragonNumHP = 250;
     getHealth.dragon.textContent = `${dragonNumHP}`;
     arrows = 6;
     bowId.textContent = `${arrows}`;
