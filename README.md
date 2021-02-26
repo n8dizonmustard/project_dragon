@@ -8,7 +8,6 @@ As a knight searching for glory, you encounter a dragon on your travels. Limited
 HTML, CSS, JavaScript.
 
 Getting Started: [Dragon Slayer](https://n8dizonmustard.github.io/project_dragon/)
-Alternate Local Link: [Dragon Slayer Alt](file:///Users/n8dizon/code/project1_dragon/index.html)
 
 Pseudocode: [Dragon Slayer Pseudocode](https://docs.google.com/document/d/1v-Ft3paYzdJFV_5RdKQqH_bIKOf-1kIkOiO2EHogJmQ/edit?usp=sharing)
 
