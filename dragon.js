@@ -1,12 +1,5 @@
-/* ----- constants -----*/
-//these const variables will not change throughout the program:
-//these variables are for computing the chance 
 const dragonActions = ['bite', 'claws', 'fire', 'fly']
 const dragonSprite = {imageUrl: 'http://clipart-library.com/images_k/dragon-png-transparent/dragon-png-transparent-1.png'}
-
-
-/* ----- app's state (variables) -----*/
-//these let variables will be changed by init function:
 let knight;
 let shieldValue;
 let dragon;
@@ -17,9 +10,6 @@ let potions;
 let dragonNumHP;
 let dragonAction;
 let flight;
-
-/* ----- cached elements references -----*/
-//these variables allow us to grab elements once and store them for later functions:
 const getHealth = {
     knight: document.getElementById('knight-hp'),
     dragon: document.getElementById('dragon-hp'),
@@ -37,7 +27,6 @@ const potionId = document.getElementById('potion');
 const body = document.querySelector('body');
 const arrowsId = document.getElementById('arrows');
 const knightSpriteId = document.getElementById('k-sprite');
-
 const dragonSpriteId = document.getElementById('drg-sprite');
 const dragonSpriteDiv = document.getElementById('dragon-sprite');
 const darkestDungeon = document.getElementById('darkest-dungeon');
@@ -52,7 +41,6 @@ const shieldSprite = document.getElementById('shield-sprite');
 const potionSprite = document.getElementById('potion-sprite');
 const tombstoneK = document.getElementById('tombstone-k');
 const tombstoneD = document.getElementById('tombstone-d');
-
 const swordSFX = document.getElementById('swordSFX');
 const hitSFX = document.getElementById('hitSFX');
 const whooshSFX = document.getElementById('whooshSFX');
@@ -65,7 +53,6 @@ const fireSFX = document.getElementById('fireSFX');
 const flyingSFX = document.getElementById('flyingSFX');
 const landingSFX = document.getElementById('landingSFX');
 const dragonSFX = document.getElementById('dragonSFX');
-
 const swordTextId = document.getElementById('sword-text');
 const shieldTextId = document.getElementById('shield-text');
 const bowTextId = document.getElementById('bow-text');
@@ -73,15 +60,11 @@ const potionTextId = document.getElementById('potion-text');
 const knightTextId = document.getElementById('knight-text');
 const deadKnightTextId = document.getElementById('dead-knight-text');
 const deadDragonTextId = document.getElementById('dead-dragon-text');
-
 darkestDungeon.volume = .3;
 magicSFX.volume = .75;
 fireSFX.volume = .5;
 magicSFX.volume = .75;
 potionSFXdrink.volume = .75;
-
-/* ----- event listeners -----*/
-//these event listeners execute player actions or run the game
 contId.addEventListener('click', continueGame);
 potionId.addEventListener('click', potionAction);
 bowId.addEventListener('click', bowAction);
@@ -89,7 +72,6 @@ shieldId.addEventListener('click', shieldAction);
 swordId.addEventListener('click', swordAction);
 startId.addEventListener('click', start);
 replayId.addEventListener('click', init);
-
 swordId.addEventListener('mouseenter', () => swordTextId.style.zIndex = 4);
 swordId.addEventListener('click', () => swordTextId.style.zIndex = -1);
 swordId.addEventListener('mouseleave', () => swordTextId.style.zIndex = -1);
@@ -108,21 +90,13 @@ tombstoneK.addEventListener('mouseenter', () => deadKnightTextId.style.zIndex = 
 tombstoneK.addEventListener('mouseleave', () => deadKnightTextId.style.zIndex = -1);
 tombstoneD.addEventListener('mouseenter', () => deadDragonTextId.style.zIndex = 4);
 tombstoneD.addEventListener('mouseleave', () => deadDragonTextId.style.zIndex = -1);
-
-/* ----- functions -----*/
 eventId.appendChild(startId);
-
-//These hover functions display tutorial text when the user hovers over the Action button.
-
 function swordTextShow(){
     swordText.style.zIndex = 4;
 }
 function swordTextHide(){
     swordText.style.zIndex = -1;
 }
-
-
-//This sets the game's starting values.
 init();
 function init(){
     knightNumHP = 50;
@@ -146,20 +120,15 @@ function init(){
     tombstoneK.style.zIndex = -1;
     tombstoneD.style.zIndex = -1;
 }
-
 function start(){
     darkestDungeon.play();
     eventId.appendChild(contId);
     startId.remove();
 }
-
-
-// This function progresses the game after the Player clicks an Action Button.
 function continueGame(){
     contId.textContent = "Dragon's Turn"
     dragonTurn()
 };
-
 function potionAction(){
     function heal(min, max){
         randomHeal = Math.floor(Math.random() * (max-min) + min);
@@ -184,7 +153,6 @@ function potionAction(){
     gameEnd();
     flightStatus()
 };
-
 function bowAction(){
     let bowChance = Math.floor(Math.random() * 100) + 1;
     if (bowChance > 45 && flight === false){
@@ -217,8 +185,6 @@ function bowAction(){
     gameEnd();
     flightStatus();
 };
-
-
 function shieldAction(){
     shieldValue = true;
     eventHeaderId.textContent = `You brace your Shield.`
@@ -230,7 +196,6 @@ function shieldAction(){
     gameEnd();
     flightStatus();
 };
-
 function swordAction(){
     let swordChance = Math.floor(Math.random() * 100) + 1;
     if (swordChance > 15 && flight === false){
@@ -255,7 +220,6 @@ function swordAction(){
     gameEnd();
     flightStatus();
 };
-
 function disableActions(){
     swordId.disabled = true;
     shieldId.disabled = true;
@@ -263,11 +227,9 @@ function disableActions(){
     potionId.disabled = true;
     contId.disabled = false;
     contId.textContent = "Dragon's Turn"
-
     contId.style.backgroundColor = "black";
     contId.style.border = "7px outset gold";
     contId.style.color = "red";
-
     swordId.style.backgroundColor = "#262626";
     swordId.style.border = "10px outset #666666";
     shieldId.style.backgroundColor = "#262626";
@@ -278,13 +240,11 @@ function disableActions(){
     potionId.style.backgroundColor = "#262626";
     potionId.style.border = "10px outset #666666";
     potionId.style.color = "white";
-
     fireSprite.style.zIndex = -1;
     clawsSprite.style.zIndex = -1;
     biteSprite.style.zIndex = -1;
     windSprite.style.zIndex = -1;
 };
-
 function enableActions(){
     swordId.disabled = false;
     shieldId.disabled = false;
@@ -294,20 +254,16 @@ function enableActions(){
     contId.style.border = "7px outset maroon";
     contId.textContent = "Your Turn"
     shieldValue = false;
-
-
     if (potions < 1){
         potionId.disabled = true;
     } else {
         potionId.disabled = false;
     }
-
     if (arrows < 1){
         bowId.disabled = true;
     } else {
         bowId.disabled = false;
     }
-
     swordId.style.backgroundColor = "red";
     swordId.style.border = "10px outset maroon";
     shieldId.style.backgroundColor = "#262626";
@@ -318,18 +274,15 @@ function enableActions(){
     potionId.style.backgroundColor = "rgb(48, 181, 181)";
     potionId.style.border = "10px outset darkgreen";
     potionId.style.color = "#00ff00";
-
     swordSprite.style.zIndex = -1;
     arrowSprite.style.zIndex = -1;
     shieldSprite.style.zIndex = -1;
     potionSprite.style.zIndex = -1;
 };
-
 function dragonTurn(){
     const biteChance = Math.floor(Math.random() * 100) + 1;
     const clawsChance = Math.floor(Math.random() * 100) + 1;
     const fireChance = Math.floor(Math.random() * 100) + 1;
-
     dragonAction = Math.floor(Math.random() * dragonActions.length);
     if (dragonAction === 0){
         if (biteChance > 25){
@@ -353,7 +306,6 @@ function dragonTurn(){
             whooshSFX.play();
         }
         eventHeaderId.textContent = `The dragon bites!`
-
     } else if (dragonAction === 1){
         if (clawsChance > 15){
             function clawsDamage(min, max){
@@ -376,7 +328,6 @@ function dragonTurn(){
             whooshSFX.play();
         }
         eventHeaderId.textContent = `The dragon swipes its claws!`
-
     } else if (dragonAction === 2){
         if (fireChance > 30){
             function fireDamage(min, max){
@@ -398,7 +349,6 @@ function dragonTurn(){
         eventHeaderId.textContent = `The dragon breathes fire!`
         fireSFX.play();
         fireSprite.style.zIndex = 2;
-
     } else {
         flight = true;
         eventHeaderId.textContent = `The dragon flies!`
@@ -407,12 +357,10 @@ function dragonTurn(){
         flyingSFX.play();
         windSprite.style.zIndex = 2;
         dragonSFX.play();
-
     }
     enableActions();
     gameEnd();
 }
-
 function flightStatus(){
     if (flight === true){
         flight = false;
@@ -422,8 +370,6 @@ function flightStatus(){
     }
     dragonSpriteDiv.appendChild(dragonSpriteId);
 }
-
-
 function gameEnd(){
     if (knightNumHP <= 0){
         eventHeaderId.textContent = `GAME OVER`
@@ -453,7 +399,6 @@ function gameEnd(){
         return false;
     }
 }
-
 function replay(){
     disableActions();
     contId.remove();
