@@ -36,6 +36,7 @@ const bowId = document.getElementById('bow');
 const potionId = document.getElementById('potion');
 const body = document.querySelector('body');
 const arrowsId = document.getElementById('arrows');
+const knightSpriteId = document.getElementById('k-sprite');
 
 const dragonSpriteId = document.getElementById('drg-sprite');
 const dragonSpriteDiv = document.getElementById('dragon-sprite');
@@ -45,6 +46,12 @@ const fireSprite = document.getElementById('fire-sprite');
 const clawsSprite = document.getElementById('claws-sprite');
 const biteSprite = document.getElementById('bite-sprite');
 const windSprite = document.getElementById('wind-sprite');
+const swordSprite = document.getElementById('sword-sprite');
+const arrowSprite = document.getElementById('arrow-sprite');
+const shieldSprite = document.getElementById('shield-sprite');
+const potionSprite = document.getElementById('potion-sprite');
+const tombstoneK = document.getElementById('tombstone-k');
+const tombstoneD = document.getElementById('tombstone-d');
 
 const swordSFX = document.getElementById('swordSFX');
 const hitSFX = document.getElementById('hitSFX');
@@ -58,6 +65,8 @@ const fireSFX = document.getElementById('fireSFX');
 const flyingSFX = document.getElementById('flyingSFX');
 const landingSFX = document.getElementById('landingSFX');
 const dragonSFX = document.getElementById('dragonSFX');
+
+const swordText = document.getElementById('sword-text');
 
 darkestDungeon.volume = .3;
 magicSFX.volume = .75;
@@ -74,24 +83,32 @@ shieldId.addEventListener('click', shieldAction);
 swordId.addEventListener('click', swordAction);
 startId.addEventListener('click', start);
 replayId.addEventListener('click', init);
+swordId.addEventListener('hover', displaySword);
 
 
 
 /* ----- functions -----*/
 eventId.appendChild(startId);
 
+//These hover functions display tutorial text when the user hovers over the Action button.
+
+function displaySword(){
+    swordText.style.zIndex = 4;
+}
+
+
 //This sets the game's starting values.
 init();
 function init(){
-    knightNumHP = 100;
+    knightNumHP = 50;
     getHealth.knight.textContent = `${knightNumHP}`;
-    dragonNumHP = 300;
+    dragonNumHP = 200;
     getHealth.dragon.textContent = `${dragonNumHP}`;
     arrows = 6;
     bowId.textContent = `${arrows}`;
     potions = 3;
     potionId.textContent = `${potions}`;
-    shieldValue = 0;
+    shieldValue = false;
     eventHeaderId.textContent = "You're attacked by a dragon!";
     eventTextId.textContent = "You probably deserve it.";
     flight = false;
@@ -99,6 +116,10 @@ function init(){
     contId.remove();
     replayId.remove();
     disableActions();
+    knightSpriteId.style.zIndex = 1;
+    dragonSpriteId.style.zIndex = 1;
+    tombstoneK.style.zIndex = -1;
+    tombstoneD.style.zIndex = -1;
 }
 
 function start(){
@@ -119,8 +140,13 @@ function potionAction(){
         randomHeal = Math.floor(Math.random() * (max-min) + min);
         return randomHeal;
     }
-    heal(30, 51)
+    heal(20, 31)
     knightNumHP += randomHeal;
+    if (knightNumHP > 50){
+        knightNumHP = 50;
+    } else {
+        return false;
+    }
     potions -= 1;
     eventHeaderId.textContent = `You drink a Potion.`
     eventTextId.textContent = `You regain ${randomHeal} HP!`
@@ -128,6 +154,7 @@ function potionAction(){
     potionId.textContent = `${potions}`;
     potionSFXdrink.play();
     magicSFX.play();
+    potionSprite.style.zIndex = 2;
     disableActions()
     gameEnd();
     flightStatus()
@@ -135,54 +162,45 @@ function potionAction(){
 
 function bowAction(){
     let bowChance = Math.floor(Math.random() * 100) + 1;
-    if (bowChance > 50 && flight === false){
+    if (bowChance > 45 && flight === false){
         function bowDamage(min, max){
             randomBowDmg = Math.floor(Math.random() * (max-min) + min);
             return randomBowDmg;
         }
-        bowDamage(50, 86)
+        bowDamage(25, 51)
         dragonNumHP -= randomBowDmg;
         getHealth.dragon.textContent = `${dragonNumHP}`;
-        eventHeaderId.textContent = `You fire your bow!`
         eventTextId.textContent = `Your arrow hits its mark! You deal ${randomBowDmg} damage!`
-        whooshSFX.play();
     } else if (bowChance > 70 && flight === true){
         function bowDamage(min, max){
             randomBowDmg = Math.floor(Math.random() * (max-min) + min);
             return randomBowDmg;
         }
-        bowDamage(50, 76)
+        bowDamage(20, 51)
         dragonNumHP -= randomBowDmg;
         getHealth.dragon.textContent = `${dragonNumHP}`;
-        eventHeaderId.textContent = `You fire your bow!`
         eventTextId.textContent = `Your arrow hits its mark! You deal ${randomBowDmg} damage!`
-        whooshSFX.play();
     } else {
-        eventHeaderId.textContent = `You fire your bow!`
-        eventTextId.textContent = `Your arrow misses! You should really work on your aim...`
-        whooshSFX.play();
+        eventTextId.textContent = `Your arrow misses! Maybe try aiming next time?`
     }
-
     arrows -= 1;
     bowId.textContent = `${arrows}`
-
-    disableActions()
+    eventHeaderId.textContent = `You loose an arrow!`
+    whooshSFX.play();
+    arrowSprite.style.zIndex = 2;
+    disableActions();
     gameEnd();
-    flightStatus()
+    flightStatus();
 };
 
 
 function shieldAction(){
-    function defend(min, max){
-        randomDefense = Math.floor(Math.random() * (max-min) + min);
-        return randomDefense;
-    }
-    defend(25, 51)
-    shieldValue = randomDefense;
+    shieldValue = true;
     eventHeaderId.textContent = `You brace your Shield.`
     eventTextId.textContent = ` Your defenses are bolstered for this turn.`
     shieldSFXbc.play();
     shieldSFXpound.play();
+    shieldSprite.style.zIndex = 2;
     disableActions();
     gameEnd();
     flightStatus();
@@ -195,12 +213,13 @@ function swordAction(){
             randomSwordDmg = Math.floor(Math.random() * (max-min) + min);
             return randomSwordDmg;
         }
-        swordDamage(20, 31)
+        swordDamage(9, 18)
         dragonNumHP -= randomSwordDmg;
         getHealth.dragon.textContent = `${dragonNumHP}`;
         eventTextId.textContent = `Your sword swings true! You deal ${randomSwordDmg} damage!`
         swordSFX.play();
         hitSFX.play();
+        swordSprite.style.zIndex = 2;
     } else {
         eventTextId.textContent = `Your sword misses the beast. How embarrassing.`
         whooshSFX.play();
@@ -249,6 +268,8 @@ function enableActions(){
     contId.style.backgroundColor = "#262626";
     contId.style.border = "7px outset maroon";
     contId.textContent = "Your Turn"
+    shieldValue = false;
+
 
     if (potions < 1){
         potionId.disabled = true;
@@ -273,6 +294,10 @@ function enableActions(){
     potionId.style.border = "10px outset darkgreen";
     potionId.style.color = "#00ff00";
 
+    swordSprite.style.zIndex = -1;
+    arrowSprite.style.zIndex = -1;
+    shieldSprite.style.zIndex = -1;
+    potionSprite.style.zIndex = -1;
 };
 
 function dragonTurn(){
@@ -282,33 +307,43 @@ function dragonTurn(){
 
     dragonAction = Math.floor(Math.random() * dragonActions.length);
     if (dragonAction === 0){
-        if (biteChance > 30){
+        if (biteChance > 25){
             function biteDamage(min, max){
                 randomBiteDmg = Math.floor(Math.random() * (max-min) + min);
                 return randomBiteDmg;
             }
-            biteDamage(15, 26)
-            knightNumHP -= Math.floor(randomBiteDmg * (100 - shieldValue)/100);
+            biteDamage(8, 16)
+            if (shieldValue === true){
+                knightNumHP -= Math.floor(randomBiteDmg - (randomBiteDmg * 0.5));
+                eventTextId.textContent = `The bite throws you off balance! You receive ${Math.floor(randomBiteDmg - (randomBiteDmg * 0.5))} damage!`
+            } else {
+                knightNumHP -= randomBiteDmg
+                eventTextId.textContent = `The bite throws you off balance! You receive ${randomBiteDmg} damage!`
+            }
             getHealth.knight.textContent = `${knightNumHP}`;
-            eventTextId.textContent = `The bite throws you off balance! You receive ${randomBiteDmg} damage!`
             biteSFX.play();
             biteSprite.style.zIndex = 2;
         } else {
-            eventTextId.textContent = `You are too fast for the dragon's jaws! You dodge its bite.`
+            eventTextId.textContent = `You are too fast for the dragon's jaws!`
             whooshSFX.play();
         }
         eventHeaderId.textContent = `The dragon bites!`
 
     } else if (dragonAction === 1){
-        if (clawsChance > 20){
+        if (clawsChance > 15){
             function clawsDamage(min, max){
                 randomClawsDmg = Math.floor(Math.random() * (max-min) + min);
                 return randomClawsDmg;
             }
-            clawsDamage(10, 21)
-            knightNumHP -= Math.floor(randomClawsDmg * (100 - shieldValue)/100);
+            clawsDamage(7, 12)
+            if (shieldValue === true){
+                knightNumHP -= Math.floor(randomClawsDmg - (randomClawsDmg * 0.5));
+                eventTextId.textContent = `The claws dent your armor! You receive ${Math.floor(randomClawsDmg - (randomClawsDmg * 0.5))} damage!`
+            } else {
+                knightNumHP -= randomClawsDmg
+                eventTextId.textContent = `The claws dent your armor! You receive ${randomClawsDmg} damage!`
+            }
             getHealth.knight.textContent = `${knightNumHP}`;
-            eventTextId.textContent = `The claws dent your armor! You receive ${randomClawsDmg} damage!`
             hitSFX.play();
             clawsSprite.style.zIndex = 2;
         } else {
@@ -318,15 +353,20 @@ function dragonTurn(){
         eventHeaderId.textContent = `The dragon swipes its claws!`
 
     } else if (dragonAction === 2){
-        if (fireChance > 35){
+        if (fireChance > 30){
             function fireDamage(min, max){
                 randomFireDmg = Math.floor(Math.random() * (max-min) + min);
                 return randomFireDmg;
             }
-            fireDamage(20, 31);
-            knightNumHP -= Math.floor(randomFireDmg * (100 - (shieldValue*1.75))/100);
+            fireDamage(12, 17);
+            if (shieldValue === true){
+                knightNumHP -= Math.floor(randomFireDmg - (randomFireDmg * 0.75));
+                eventTextId.textContent = `You're on fire! Fire bad. You receive ${Math.floor(randomFireDmg - (randomFireDmg * 0.75))} damage!`
+            } else {
+                knightNumHP -= randomFireDmg
+                eventTextId.textContent = `You're on fire! Fire bad. You receive ${randomFireDmg} damage!`
+            }
             getHealth.knight.textContent = `${knightNumHP}`;
-            eventTextId.textContent = `You're on fire! Fire bad. You receive ${randomFireDmg} damage!`
         } else {
             eventTextId.textContent = `The dragon's flames narrowly miss you!`
         }
@@ -340,11 +380,10 @@ function dragonTurn(){
         eventTextId.textContent = `The beast searches for a weakness. (That won't be difficult.)`
         dragonSpriteId.remove();
         flyingSFX.play();
-        windSprite.style.zIndex = 1;
+        windSprite.style.zIndex = 2;
         dragonSFX.play();
 
     }
-    shieldValue = 0;
     enableActions();
     gameEnd();
 }
@@ -366,12 +405,24 @@ function gameEnd(){
         eventTextId.textContent = `The Dragon feasts on your corpse. You taste awful.`
         knightNumHP = 0;
         getHealth.knight.textContent = `${knightNumHP}`;
+        swordSprite.style.zIndex = -1;
+        arrowSprite.style.zIndex = -1;
+        shieldSprite.style.zIndex = -1;
+        potionSprite.style.zIndex = -1;
+        knightSpriteId.style.zIndex = -1;
+        tombstoneK.style.zIndex = 2;
         replay();
     } else if (dragonNumHP <= 0){
         eventHeaderId.textContent = `VICTORY!!!`
         eventTextId.textContent = `You have slain the Dragon! Congrats. You're a murderer.`
         dragonNumHP = 0;
         getHealth.dragon.textContent = `${dragonNumHP}`;
+        swordSprite.style.zIndex = -1;
+        arrowSprite.style.zIndex = -1;
+        shieldSprite.style.zIndex = -1;
+        potionSprite.style.zIndex = -1;
+        dragonSpriteId.style.zIndex = -1;
+        tombstoneD.style.zIndex = 2;
         replay();
     } else {
         return false;
