@@ -14,4 +14,5 @@ Pseudocode: [Dragon Slayer Pseudocode](https://docs.google.com/document/d/1v-Ft3
 ## Next Steps:
 * Animations
 * More actions and events
+* More features for existing actions
 * Proper deployment

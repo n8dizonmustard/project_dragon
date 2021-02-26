@@ -17,7 +17,7 @@ h3 {
     line-height: 30px;
     position: relative;
     z-index: 1;
-    color: white;
+    color: yellow;
     margin: 10px 0;
     -webkit-text-stroke: 1px black;
 }
