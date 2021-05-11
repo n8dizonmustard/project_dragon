@@ -59,7 +59,7 @@ const bowTextId = document.getElementById('bow-text');
 const potionTextId = document.getElementById('potion-text');
 const knightTextId = document.getElementById('knight-text');
 const deadKnightTextId = document.getElementById('dead-knight-text');
-const deadDragonTextId = document.getElementById('dead-dragon-text');
+
 darkestDungeon.volume = .3;
 magicSFX.volume = .75;
 fireSFX.volume = .5;
@@ -84,12 +84,7 @@ bowId.addEventListener('mouseleave', () => bowTextId.style.zIndex = -1);
 potionId.addEventListener('mouseenter', () => potionTextId.style.zIndex = 4);
 potionId.addEventListener('click', () => potionTextId.style.zIndex = -1);
 potionId.addEventListener('mouseleave', () => potionTextId.style.zIndex = -1);
-knightSpriteId.addEventListener('mouseenter', () => knightTextId.style.zIndex = 4);
-knightSpriteId.addEventListener('mouseleave', () => knightTextId.style.zIndex = -1);
-tombstoneK.addEventListener('mouseenter', () => deadKnightTextId.style.zIndex = 4);
-tombstoneK.addEventListener('mouseleave', () => deadKnightTextId.style.zIndex = -1);
-tombstoneD.addEventListener('mouseenter', () => deadDragonTextId.style.zIndex = 4);
-tombstoneD.addEventListener('mouseleave', () => deadDragonTextId.style.zIndex = -1);
+
 eventId.appendChild(startId);
 function swordTextShow(){
     swordText.style.zIndex = 4;
@@ -132,14 +127,13 @@ function continueGame(){
 function potionAction(){
     function heal(min, max){
         randomHeal = Math.floor(Math.random() * (max-min) + min);
+        console.log('heal value:', randomHeal)
         return randomHeal;
     }
     heal(20, 31)
     knightNumHP += randomHeal;
-    if (knightNumHP > 50){
+    if (knightNumHP >= 50){
         knightNumHP = 50;
-    } else {
-        return false;
     }
     potions -= 1;
     eventHeaderId.textContent = `You drink a Potion.`

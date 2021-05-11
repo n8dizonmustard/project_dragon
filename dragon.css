@@ -7,22 +7,26 @@ body {
 
 h1 {
     text-align: center;
-    font-size: 38px;
+    font-size: 30px;
     line-height: 50px;
     color: red;
     margin: 10px 0;
     -webkit-text-stroke: 1px black;
+    position: relative;
+    width: 500px;
+    right: 50px;
 }
 
 h3 {
     text-align: center;
-    font-size: 22px;
+    font-size: 18px;
     line-height: 30px;
     position: relative;
     z-index: 1;
     color: yellow;
     margin: 10px 0;
     -webkit-text-stroke: 1px black;
+    right: 50px
 }
 
 .grid-container {
@@ -53,6 +57,7 @@ h3 {
     border: 7px outset gold;
     background-color: black;
     color: red;
+    right: 50px;
 }
 
 #knight-hp {
@@ -72,6 +77,8 @@ h3 {
     width: 150px;
     height: 200px;
     opacity: 0.9;
+    position: relative;
+    left: 100px;
 }
 
 #dragon-hp {
@@ -92,6 +99,7 @@ h3 {
     width: 150px;
     height: 200px;
     opacity: 0.9;
+    position: relative;
 }
 
 #knight-sprite-div {
@@ -99,12 +107,12 @@ h3 {
 }
 
 #k-sprite {
-    height: 50%;
-    width: 50%;
+    height: 90%;
+    width: 90%;
     transform: scaleX(-1);
     position: relative;
-    top: 610px;
-    right: 725px;
+    top: 425px;
+    right: 825px;
     z-index: 1;
 }
 
@@ -113,12 +121,11 @@ h3 {
 }
 
 #drg-sprite {
-    width: 130%;
+    width: 110%;
     position: relative;
-    top: 50px;
     left: 50px;
     z-index: 0;
-    bottom: 50px;
+    top: 30px;
 }
 
 #player-actions {
@@ -309,28 +316,4 @@ h3 {
     bottom: 450px;
     left: 500px;
     width: 145px;
-}
-
-#knight-text {
-    color: black;
-    background-color: white;
-    right: 725px;
-    top: 350px;
-    width: 100px;
-}
-
-#dead-knight-text {
-    color: black;
-    background-color: white;
-    right: 725px;
-    top: 285px;
-    width: 100px;
-}
-
-#dead-dragon-text {
-    color: black;
-    background-color: white;
-    left: 450px;
-    bottom: 200px;
-    width: 100px;
 }
