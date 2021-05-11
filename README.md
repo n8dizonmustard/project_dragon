@@ -5,7 +5,9 @@ As a knight searching for glory, you encounter a dragon on your travels. Limited
 ![Wireframe](/./images/wireframe.jpg)
 
 ## Technologies Used:
-HTML, CSS, JavaScript.
+* HTML
+* CSS
+* JavaScript
 
 Getting Started: [Dragon Slayer](https://n8dizonmustard.github.io/project_dragon/)
 

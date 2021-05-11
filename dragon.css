@@ -41,13 +41,7 @@ h3 {
     height: 800px;
     border: 10px solid black;
 }
-
-#event {
-    grid-column: span 2;
-    justify-self: center;
-    background-image: url(http://clipart-library.com/img/714805.png);
-}
-
+hp
 #cont, #start, #replay {
     font-family: 'Press Start 2P', cursive;
     font-size: 25px;
@@ -71,7 +65,7 @@ h3 {
 }
 
 #knight-hp-div {
-    background-image: url(http://clipart-library.com/img/1578912.png);
+    background-image: url('./images/hp-heart.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -91,7 +85,7 @@ h3 {
 }
 
 #dragon-hp-div {
-    background-image: url(http://clipart-library.com/img/1578912.png);
+    background-image: url('./images/hp-heart.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -119,11 +113,11 @@ h3 {
 }
 
 #drg-sprite {
-    height: 130%;
     width: 130%;
     position: relative;
     right: 200px;
     z-index: 0;
+    bottom: 50px;
 }
 
 #player-actions {
@@ -138,7 +132,7 @@ h3 {
 }
 
 #sword {
-    background-image: url(http://clipart-library.com/images_k/sword-transparent/sword-transparent-9.png);
+    background-image: url('./images/sword-button.png');
     background-size: 90px;
     background-repeat: no-repeat;
     background-position: center;
@@ -150,7 +144,7 @@ h3 {
 }
 
 #shield {
-    background-image: url(http://clipart-library.com/img1/1514023.png);
+    background-image: url('./images/shield-button.png');
     background-size: 90px;
     background-repeat: no-repeat;
     background-position: center;
@@ -162,7 +156,7 @@ h3 {
 }
 
 #bow {
-    background-image: url(http://clipart-library.com/image_gallery2/Archery-Free-Download-PNG.png);
+    background-image: url('./images/bow-button.png');
     background-size: 90px;
     background-repeat: no-repeat;
     background-position: center;
@@ -177,7 +171,7 @@ h3 {
 }
 
 #potion {
-    background-image: url(http://clipart-library.com/images_k/potion-transparent/potion-transparent-3.png);
+    background-image: url('./images/potion-button.png');
     background-size: 90px;
     background-repeat: no-repeat;
     background-position: center;
