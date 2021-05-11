@@ -2,7 +2,7 @@
 body {
     font-family: 'Press Start 2P', cursive;
     background-repeat: no-repeat;
-    /* background-color: black; */
+    background-color: black;
 }
 
 h1 {
@@ -33,7 +33,7 @@ h3 {
 }
 
 #game {
-    /* background-image: url('./images/fantasy-forest.jpeg'); */
+    background-image: url('./images/fantasy-forest.jpeg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -184,7 +184,7 @@ h3 {
     border: 10px outset darkgreen;
     background-color: rgb(48, 181, 181);
     font-family: 'Press Start 2P', cursive;
-    font-size: 12px;
+    font-size: 20px;
     position: relative;
     text-align: bottom;
     -webkit-text-stroke: 1px black;
