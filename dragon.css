@@ -41,7 +41,7 @@ h3 {
     height: 800px;
     border: 10px solid black;
 }
-hp
+
 #cont, #start, #replay {
     font-family: 'Press Start 2P', cursive;
     font-size: 25px;
@@ -103,8 +103,8 @@ hp
     width: 50%;
     transform: scaleX(-1);
     position: relative;
-    top: 210px;
-    left: 200px;
+    top: 610px;
+    right: 725px;
     z-index: 1;
 }
 
@@ -115,7 +115,8 @@ hp
 #drg-sprite {
     width: 130%;
     position: relative;
-    right: 200px;
+    top: 50px;
+    left: 50px;
     z-index: 0;
     bottom: 50px;
 }
@@ -193,7 +194,7 @@ hp
     width: 300px;
     position: relative;
     top: 1050px;
-    left: 100px;
+    left: 400px;
     z-index: -1;
 }
 
@@ -202,7 +203,7 @@ hp
     opacity: 0.75;
     transform: scaleX(-1);
     top: 950px;
-    left: -70px;
+    left: 225px;
 }
 
 #bite-sprite {
@@ -210,36 +211,36 @@ hp
     opacity: 0.75;
     transform: scaleX(-1);
     top: 925px;
-    right: 195px;
+    left: 100px;
 }
 
 #wind-sprite {
     width: 300px;
     transform: scaleX(-1);
     opacity: 0.5;
-    left: 450px;
+    left: 700px;
     top: 600px;
 }
 
 #sword-sprite {
     width: 400px;
     transform: scaleX(-1) rotate(60deg);
-    left: 350px;
+    left: 600px;
     top: 325px;
 }
 
 #arrow-sprite {
     width: 100px;
     transform: rotate(137deg);
-    left: 150px;
+    left: 500px;
     top: 150px;
 }
 
 #shield-sprite {
     width: 100px;
     opacity: 0.75;
-    right: 150px;
     top: 210px;
+    left: 100px;
 }
 
 #potion-sprite {
@@ -247,7 +248,7 @@ hp
     opacity: 0.9;
     transform: rotate(270deg) scaleX(-1);
     top: 100px;
-    right: 100px;
+    left: 175px;
 }
 
 #potion-sprite, #shield-sprite, #bite-sprite, #claws-sprite, #arrow-sprite, #sword-sprite, #wind-sprite, #tombstone-d, #tombstone-k {
@@ -259,14 +260,13 @@ hp
 
 #tombstone-k {
     width: 100px;
-    right: 275px;
+
     top: 125px;
 }
 
 #tombstone-d {
     width: 100px;
-    top: 10px;
-    left: 600px;
+    left: 850px;
 }
 
 #potion-text, #bow-text, #shield-text, #sword-text, #knight-text, #dead-dragon-text, #dead-knight-text {
@@ -314,23 +314,23 @@ hp
 #knight-text {
     color: black;
     background-color: white;
-    left: 200px;
-    bottom: 10px;
+    right: 725px;
+    top: 350px;
     width: 100px;
 }
 
 #dead-knight-text {
     color: black;
     background-color: white;
-    left: 200px;
-    bottom: 100px;
+    right: 725px;
+    top: 285px;
     width: 100px;
 }
 
 #dead-dragon-text {
     color: black;
     background-color: white;
-    left: 200px;
-    bottom: 325px;
+    left: 450px;
+    bottom: 200px;
     width: 100px;
 }
